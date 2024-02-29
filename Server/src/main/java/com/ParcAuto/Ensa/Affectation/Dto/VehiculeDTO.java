@@ -13,5 +13,10 @@ public class VehiculeDTO {
     private boolean disponible;
     private String typePermisRequis;
     private String equipementsSpeciaux;
+
+
+    public String getModelName() {
+        return null;
+    }
 }
 

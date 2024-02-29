@@ -10,17 +10,18 @@ import java.util.List;
 @Data
 public class Conducteur {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String matricule;
 
     private String nom;
     private String prenom;
-    private String matricule;
     private LocalDate dateNaissance;
     private String cin;
-    private String numeroPermis;
-    private LocalDate dateRemisePermis;
-    private String typePermis;
+
 
     @OneToMany(mappedBy = "conducteur")
-    private List<Voyage> voyages;}
+    private List<Voyage> voyages;
+
+    @OneToOne
+    private Permis permis;
+
+}
