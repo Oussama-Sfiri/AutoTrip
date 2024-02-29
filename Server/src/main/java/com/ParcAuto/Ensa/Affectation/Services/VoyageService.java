@@ -13,10 +13,12 @@ public class VoyageService {
 
     public VoyageDTO getVoyageById(Long id) {
         // Implémentez la logique pour récupérer un voyage par ID depuis le repository
+        return null;
     }
 
     public VoyageDTO createVoyage(VoyageDTO voyageDTO) {
         // Implémentez la logique pour créer un voyage en utilisant le repository
+        return null;
     }
 
     // Ajoutez les méthodes pour les opérations CRUD sur les voyages
