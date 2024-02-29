@@ -3,66 +3,90 @@ package com.ParcAuto.Ensa.Affectation.Services;
 import com.ParcAuto.Ensa.Affectation.Dto.ConducteurDTO;
 import com.ParcAuto.Ensa.Affectation.Entities.Conducteur;
 import com.ParcAuto.Ensa.Affectation.Repositories.ConducteurRepository;
-import jakarta.transaction.Transactional;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
-@Transactional
 public class ConducteurService {
-
-    private final ModelMapper modelMapper;
 
     @Autowired
     private ConducteurRepository conducteurRepository;
-
-    @Autowired
-    public ConducteurService(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
 
     public ConducteurDTO getConducteurById(Long id) {
         Optional<Conducteur> conducteurOptional = conducteurRepository.findById(id);
 
         if (conducteurOptional.isPresent()) {
             Conducteur conducteur = conducteurOptional.get();
-            return mapConducteurToDTO(conducteur);
+            return conducteurToDTO(conducteur);
         } else {
-            // Gérer le cas où le conducteur n'est pas trouvé
-            return null; // Ou lancez une exception
+            throw new RuntimeException("Conducteur non trouvé avec l'ID : " + id);
         }
     }
 
     public ConducteurDTO createConducteur(ConducteurDTO conducteurDTO) {
-        Conducteur conducteur = mapDTOToConducteur(conducteurDTO);
+        Conducteur conducteur = dtoToConducteur(conducteurDTO);
         conducteur.setId(null); // Assurez-vous que l'ID est null pour la création
         Conducteur savedConducteur = conducteurRepository.save(conducteur);
-        return mapConducteurToDTO(savedConducteur);
+        ConducteurDTO createdConducteurDTO = conducteurToDTO(savedConducteur);
+        return createdConducteurDTO;
     }
 
     public List<ConducteurDTO> getAllConducteurs() {
         List<Conducteur> conducteurs = conducteurRepository.findAll();
-        return conducteurs.stream()
-                .map(this::mapConducteurToDTO)
-                .collect(Collectors.toList());
+        List<ConducteurDTO> conducteurDTOs = new ArrayList<>();
+        for (Conducteur conducteur : conducteurs) {
+            conducteurDTOs.add(conducteurToDTO(conducteur));
+        }
+        return conducteurDTOs;
+    }
+
+    public ConducteurDTO updateConducteur(Long id, ConducteurDTO conducteurDTO) {
+        Optional<Conducteur> conducteurOptional = conducteurRepository.findById(id);
+
+        if (conducteurOptional.isPresent()) {
+            Conducteur existingConducteur = conducteurOptional.get();
+            // Mettez à jour les propriétés du conducteur existant avec celles du DTO
+            existingConducteur.setNom(conducteurDTO.getNom());
+            existingConducteur.setPrenom(conducteurDTO.getPrenom());
+            existingConducteur.setMatricule(conducteurDTO.getMatricule());
+            // Mettez à jour d'autres propriétés selon vos besoins
+
+            Conducteur updatedConducteur = conducteurRepository.save(existingConducteur);
+            return conducteurToDTO(updatedConducteur);
+        } else {
+            // Lancez une exception personnalisée si le conducteur n'est pas trouvé
+            return null;
+        }
     }
 
     public void deleteConducteur(Long id) {
-        conducteurRepository.deleteById(id);
+        if (conducteurRepository.existsById(id)) {
+            conducteurRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Conducteur non trouvé avec l'ID : " + id);
+        }
     }
 
     // Ajoutez d'autres méthodes pour les opérations CRUD sur les conducteurs
 
-    private ConducteurDTO mapConducteurToDTO(Conducteur conducteur) {
-        return modelMapper.map(conducteur, ConducteurDTO.class);
+    private ConducteurDTO conducteurToDTO(Conducteur conducteur) {
+        ConducteurDTO conducteurDTO = new ConducteurDTO();
+        conducteurDTO.setId(conducteur.getId());
+        conducteurDTO.setNom(conducteur.getNom());
+        conducteurDTO.setPrenom(conducteur.getPrenom());
+        // ... définissez d'autres propriétés
+        return conducteurDTO;
     }
 
-    private Conducteur mapDTOToConducteur(ConducteurDTO conducteurDTO) {
-        return modelMapper.map(conducteurDTO, Conducteur.class);
+    private Conducteur dtoToConducteur(ConducteurDTO conducteurDTO) {
+        Conducteur conducteur = new Conducteur();
+        conducteur.setNom(conducteurDTO.getNom());
+        conducteur.setPrenom(conducteurDTO.getPrenom());
+        // ... définissez d'autres propriétés
+        return conducteur;
     }
 }
