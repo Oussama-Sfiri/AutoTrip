@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class VehiculeDTO {
-    private Long id;
     private String immatriculation;
     private String marque;
     private String modele;
@@ -13,10 +12,5 @@ public class VehiculeDTO {
     private boolean disponible;
     private String typePermisRequis;
     private String equipementsSpeciaux;
-
-
-    public String getModelName() {
-        return null;
-    }
 }
 
