@@ -50,7 +50,7 @@ public class VehiculeService {
         Optional<Vehicule> optionalVehicule = vehiculeRepository.findById(id);
         if (optionalVehicule.isPresent()) {
             Vehicule vehicule = optionalVehicule.get();
-            vehicule.setModelName(vehiculeDTO.getModelName());
+            vehicule.setModele(vehiculeDTO.getModelName());
             // Update other properties accordingly
 
             Vehicule updatedVehicule = vehiculeRepository.save(vehicule);
@@ -66,7 +66,7 @@ public class VehiculeService {
     // Utility method to convert Vehicule to VehiculeDTO
     private VehiculeDTO convertToDTO(Vehicule vehicule) {
         VehiculeDTO vehiculeDTO = new VehiculeDTO();
-        vehiculeDTO.setId(vehicule.getId());
+        vehiculeDTO.setImmatriculation(vehicule.getImmatriculation());
         // Convert other properties accordingly
 
         return vehiculeDTO;
