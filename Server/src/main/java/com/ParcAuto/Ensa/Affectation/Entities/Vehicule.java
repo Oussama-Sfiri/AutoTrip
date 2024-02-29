@@ -8,10 +8,8 @@ import java.util.List;
 @Entity
 @Data
 public class Vehicule {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
+    @Id
     private String immatriculation;
     private String marque;
     private String modele;
@@ -24,6 +22,8 @@ public class Vehicule {
     @OneToMany(mappedBy = "vehicule")
     private List<Voyage> voyages;
 
+    @OneToOne(mappedBy = "vehicule")
+    private CarteGrise carteGrise;
 
 
 

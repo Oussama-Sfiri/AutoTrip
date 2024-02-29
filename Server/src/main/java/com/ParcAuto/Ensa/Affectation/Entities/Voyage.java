@@ -1,6 +1,7 @@
 package com.ParcAuto.Ensa.Affectation.Entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -22,6 +23,11 @@ public class Voyage {
     private String typeVehicule;
     private int nombrePassagers;
     private String autresDetails;
+
+    @Column(name = "status", columnDefinition = "boolean default false")
+    private Boolean status;
+
+
 
     @ManyToOne
     @JoinColumn(name = "conducteur_id")

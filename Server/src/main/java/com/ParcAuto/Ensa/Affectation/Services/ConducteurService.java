@@ -29,7 +29,7 @@ public class ConducteurService {
 
     public ConducteurDTO createConducteur(ConducteurDTO conducteurDTO) {
         Conducteur conducteur = dtoToConducteur(conducteurDTO);
-        conducteur.setId(null); // Assurez-vous que l'ID est null pour la création
+        conducteur.setMatricule(null); // Assurez-vous que l'ID est null pour la création
         Conducteur savedConducteur = conducteurRepository.save(conducteur);
         ConducteurDTO createdConducteurDTO = conducteurToDTO(savedConducteur);
         return createdConducteurDTO;
@@ -75,7 +75,7 @@ public class ConducteurService {
 
     private ConducteurDTO conducteurToDTO(Conducteur conducteur) {
         ConducteurDTO conducteurDTO = new ConducteurDTO();
-        conducteurDTO.setId(conducteur.getId());
+        conducteurDTO.setMatricule(conducteur.getMatricule());
         conducteurDTO.setNom(conducteur.getNom());
         conducteurDTO.setPrenom(conducteur.getPrenom());
         // ... définissez d'autres propriétés
