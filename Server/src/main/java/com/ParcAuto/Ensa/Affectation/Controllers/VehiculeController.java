@@ -1,5 +1,7 @@
 package com.ParcAuto.Ensa.Affectation.Controllers;
 
+import com.ParcAuto.Ensa.Affectation.Entities.Vehicule;
+import com.ParcAuto.Ensa.Affectation.Services.VehiculeService; // Import the VehiculeService
 import com.ParcAuto.Ensa.Affectation.Dto.VehiculeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +18,8 @@ public class VehiculeController {
     private VehiculeService vehiculeService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<VehiculeDTO> getVehiculeById(@PathVariable Long id) {
-        VehiculeDTO vehiculeDTO = vehiculeService.getVehiculeById(id);
+    public ResponseEntity<Vehicule> getVehiculeById(@PathVariable Long id) {
+        Vehicule vehiculeDTO = vehiculeService.getVehiculeById(id);
         return ResponseEntity.ok(vehiculeDTO);
     }
 
@@ -40,9 +42,8 @@ public class VehiculeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<VehiculeDTO>> getAllVehicules() {
-        List<VehiculeDTO> vehicules = vehiculeService.getAllVehicules();
+    public ResponseEntity<List<Vehicule>> getAllVehicules() {
+        List<Vehicule> vehicules = vehiculeService.getAllVehicules();
         return ResponseEntity.ok(vehicules);
     }
 }
-
