@@ -11,7 +11,7 @@ import java.time.LocalTime;
 @Data
 public class Voyage {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate dateDepart;

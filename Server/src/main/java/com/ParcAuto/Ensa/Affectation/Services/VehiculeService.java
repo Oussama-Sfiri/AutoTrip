@@ -37,7 +37,7 @@ public class VehiculeService {
 
     public VehiculeDTO createVehicule(VehiculeDTO vehiculeDTO) {
         Vehicule vehicule = new Vehicule();
-        vehicule.setModele(vehiculeDTO.getModelName());
+        vehicule.setModele(vehiculeDTO.getModele());
         // Set other properties accordingly
 
         Vehicule savedVehicule = vehiculeRepository.save(vehicule);
@@ -50,7 +50,7 @@ public class VehiculeService {
         Optional<Vehicule> optionalVehicule = vehiculeRepository.findById(id);
         if (optionalVehicule.isPresent()) {
             Vehicule vehicule = optionalVehicule.get();
-            vehicule.setModele(vehiculeDTO.getModelName());
+            vehicule.setModele(vehiculeDTO.getModele());
             // Update other properties accordingly
 
             Vehicule updatedVehicule = vehiculeRepository.save(vehicule);
