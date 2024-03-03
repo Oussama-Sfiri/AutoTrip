@@ -7,6 +7,7 @@ import java.time.LocalTime;
 
 @Data
 public class VoyageDTO {
+    private Long id;
     private LocalDate dateDepart;
     private LocalTime heureDepart;
     private LocalDate dateArriveePrev;
@@ -17,5 +18,7 @@ public class VoyageDTO {
     private int nombrePassagers;
     private String autresDetails;
     private Boolean status;
+    private ConducteurDTO conducteur;
+    private VehiculeDTO vehicule;
 }
 

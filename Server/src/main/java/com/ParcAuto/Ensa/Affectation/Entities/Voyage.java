@@ -9,7 +9,7 @@ import java.time.LocalTime;
 
 @Entity
 @Data
-public class Voyage {
+public class  Voyage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,8 +26,6 @@ public class Voyage {
 
     @Column(name = "status", columnDefinition = "boolean default false")
     private Boolean status;
-
-
 
     @ManyToOne
     @JoinColumn(name = "conducteur_id")
