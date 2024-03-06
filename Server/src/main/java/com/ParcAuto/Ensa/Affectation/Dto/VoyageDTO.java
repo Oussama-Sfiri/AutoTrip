@@ -17,8 +17,8 @@ public class VoyageDTO {
     private String typeVehicule;
     private int nombrePassagers;
     private String autresDetails;
-
-    private Long conducteurId;
-    private Long vehiculeId;
+    private Boolean status;
+    private ConducteurDTO conducteur;
+    private VehiculeDTO vehicule;
 }
 

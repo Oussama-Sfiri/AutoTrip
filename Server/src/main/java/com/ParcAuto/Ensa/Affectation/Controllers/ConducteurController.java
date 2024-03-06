@@ -17,9 +17,9 @@ public class ConducteurController {
     @Autowired
     private ConducteurService conducteurService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ConducteurDTO> getConducteurById(@PathVariable Long id) throws ChangeSetPersister.NotFoundException {
-        ConducteurDTO conducteurDTO = conducteurService.getConducteurById(id);
+    @GetMapping("/{matricule}")
+    public ResponseEntity<ConducteurDTO> getConducteurById(@PathVariable String matricule) throws ChangeSetPersister.NotFoundException {
+        ConducteurDTO conducteurDTO = conducteurService.getConducteurByMatricule(matricule);
         return ResponseEntity.ok(conducteurDTO);
     }
 
@@ -29,16 +29,16 @@ public class ConducteurController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdConducteur);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ConducteurDTO> updateConducteur(@PathVariable Long id, @RequestBody ConducteurDTO conducteurDTO) {
-        ConducteurDTO updatedConducteur = conducteurService.updateConducteur(id, conducteurDTO);
+    @PutMapping("/{matricule}")
+    public ResponseEntity<ConducteurDTO> updateConducteur(@PathVariable String matricule, @RequestBody ConducteurDTO conducteurDTO) {
+        ConducteurDTO updatedConducteur = conducteurService.updateConducteur(matricule, conducteurDTO);
         return ResponseEntity.ok(updatedConducteur);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteConducteur(@PathVariable Long id) throws ChangeSetPersister.NotFoundException {
-        conducteurService.deleteConducteur(id);
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/{matricule}")
+    public ResponseEntity<ConducteurDTO> deleteConducteur(@PathVariable String matricule) throws ChangeSetPersister.NotFoundException {
+        ConducteurDTO deletedConducteur = conducteurService.deleteConducteur(matricule);
+        return ResponseEntity.ok(deletedConducteur);
     }
 
     @GetMapping
