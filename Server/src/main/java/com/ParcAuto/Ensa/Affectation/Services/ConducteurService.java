@@ -3,6 +3,7 @@ package com.ParcAuto.Ensa.Affectation.Services;
 import com.ParcAuto.Ensa.Affectation.Dto.ConducteurDTO;
 import com.ParcAuto.Ensa.Affectation.Entities.Conducteur;
 import com.ParcAuto.Ensa.Affectation.Repositories.ConducteurRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +17,19 @@ public class ConducteurService {
     @Autowired
     private ConducteurRepository conducteurRepository;
 
-    public ConducteurDTO getConducteurById(Long id) {
-        Optional<Conducteur> conducteurOptional = conducteurRepository.findById(id);
+    public ConducteurDTO getConducteurByMatricule(String matricule) {
+        Optional<Conducteur> conducteurOptional = conducteurRepository.findByMatricule(matricule);
 
         if (conducteurOptional.isPresent()) {
             Conducteur conducteur = conducteurOptional.get();
             return conducteurToDTO(conducteur);
         } else {
-            throw new RuntimeException("Conducteur non trouvé avec l'ID : " + id);
+            throw new RuntimeException("Conducteur non trouvé avec le matricule : " + matricule);
         }
     }
 
     public ConducteurDTO createConducteur(ConducteurDTO conducteurDTO) {
         Conducteur conducteur = dtoToConducteur(conducteurDTO);
-        conducteur.setMatricule(null); // Assurez-vous que l'ID est null pour la création
         Conducteur savedConducteur = conducteurRepository.save(conducteur);
         ConducteurDTO createdConducteurDTO = conducteurToDTO(savedConducteur);
         return createdConducteurDTO;
@@ -44,49 +44,60 @@ public class ConducteurService {
         return conducteurDTOs;
     }
 
-    public ConducteurDTO updateConducteur(Long id, ConducteurDTO conducteurDTO) {
-        Optional<Conducteur> conducteurOptional = conducteurRepository.findById(id);
+    public ConducteurDTO updateConducteur(String matricule, ConducteurDTO conducteurDTO) {
+        Optional<Conducteur> conducteurOptional = conducteurRepository.findByMatricule(matricule);
 
         if (conducteurOptional.isPresent()) {
             Conducteur existingConducteur = conducteurOptional.get();
             // Mettez à jour les propriétés du conducteur existant avec celles du DTO
-            existingConducteur.setNom(conducteurDTO.getNom());
-            existingConducteur.setPrenom(conducteurDTO.getPrenom());
-            existingConducteur.setMatricule(conducteurDTO.getMatricule());
-            // Mettez à jour d'autres propriétés selon vos besoins
+            existingConducteur.setNom(conducteurDTO.getNom() != null ? conducteurDTO.getNom() : existingConducteur.getNom());
+            existingConducteur.setPrenom(conducteurDTO.getPrenom() != null ? conducteurDTO.getPrenom() : existingConducteur.getPrenom());
+            existingConducteur.setMatricule(conducteurDTO.getMatricule() != null ? conducteurDTO.getMatricule() : existingConducteur.getMatricule());
+            existingConducteur.setDateNaissance(conducteurDTO.getDateNaissance() != null ? conducteurDTO.getDateNaissance() : existingConducteur.getDateNaissance());
+            existingConducteur.setCin(conducteurDTO.getCin() != null ? conducteurDTO.getCin() : existingConducteur.getCin());
 
             Conducteur updatedConducteur = conducteurRepository.save(existingConducteur);
             return conducteurToDTO(updatedConducteur);
         } else {
-            // Lancez une exception personnalisée si le conducteur n'est pas trouvé
-            return null;
+            throw new RuntimeException("Conducteur non trouvé avec le matricule : " + matricule);
         }
     }
 
-    public void deleteConducteur(Long id) {
-        if (conducteurRepository.existsById(id)) {
-            conducteurRepository.deleteById(id);
+    @Transactional
+    public ConducteurDTO deleteConducteur(String matricule) {
+        Optional<Conducteur> conducteurDeletedOptional;
+        if (conducteurRepository.existsByMatricule(matricule)) {
+            conducteurDeletedOptional = conducteurRepository.findByMatricule(matricule);
+            if (conducteurDeletedOptional.isPresent()){
+                Conducteur deletedConducteur = conducteurDeletedOptional.get();
+                ConducteurDTO deletedConducteurDTO = conducteurToDTO(deletedConducteur);
+                Long deletedCount = conducteurRepository.deleteByMatricule(matricule);
+                return deletedCount > 0 ? deletedConducteurDTO : null;
+            }else {
+                return null;
+            }
         } else {
-            throw new RuntimeException("Conducteur non trouvé avec l'ID : " + id);
+            throw new RuntimeException("Conducteur non trouvé avec le matricule : " + matricule);
         }
     }
-
-    // Ajoutez d'autres méthodes pour les opérations CRUD sur les conducteurs
 
     private ConducteurDTO conducteurToDTO(Conducteur conducteur) {
         ConducteurDTO conducteurDTO = new ConducteurDTO();
         conducteurDTO.setMatricule(conducteur.getMatricule());
         conducteurDTO.setNom(conducteur.getNom());
         conducteurDTO.setPrenom(conducteur.getPrenom());
-        // ... définissez d'autres propriétés
+        conducteurDTO.setCin(conducteur.getCin());
+        conducteurDTO.setDateNaissance(conducteur.getDateNaissance());
         return conducteurDTO;
     }
 
     private Conducteur dtoToConducteur(ConducteurDTO conducteurDTO) {
         Conducteur conducteur = new Conducteur();
+        conducteur.setMatricule(conducteurDTO.getMatricule() );
         conducteur.setNom(conducteurDTO.getNom());
         conducteur.setPrenom(conducteurDTO.getPrenom());
-        // ... définissez d'autres propriétés
+        conducteur.setCin(conducteurDTO.getCin());
+        conducteur.setDateNaissance(conducteurDTO.getDateNaissance());
         return conducteur;
     }
 }
