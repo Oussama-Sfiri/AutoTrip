@@ -63,7 +63,7 @@ public class VehiculeService {
             existingVehicule.setTypePermisRequis(vehiculeDTO.getTypePermisRequis() != null ? vehiculeDTO.getTypePermisRequis() : existingVehicule.getTypePermisRequis());
             existingVehicule.setEquipementsSpeciaux(vehiculeDTO.getEquipementsSpeciaux() != null ? vehiculeDTO.getEquipementsSpeciaux() : existingVehicule.getEquipementsSpeciaux());
             existingVehicule.setKilometrage(vehiculeDTO.getKilometrage() != null ? vehiculeDTO.getKilometrage() : existingVehicule.getKilometrage());
-            existingVehicule.setDisponible(vehiculeDTO.getDisponible() != null ? vehiculeDTO.getDisponible() : existingVehicule.isDisponible());
+//            existingVehicule.setDisponible(vehiculeDTO.getDisponible() != null ? vehiculeDTO.getDisponible() : existingVehicule.isDisponible());
 
 
             Vehicule updatedVehicule = vehiculeRepository.save(existingVehicule);
@@ -99,7 +99,7 @@ public class VehiculeService {
         vehiculeDTO.setModele(vehicule.getModele());
         vehiculeDTO.setType(vehicule.getType());
         vehiculeDTO.setKilometrage(vehicule.getKilometrage());
-        vehiculeDTO.setDisponible(vehicule.isDisponible());
+//        vehiculeDTO.setDisponible(vehicule.isDisponible());
         vehiculeDTO.setTypePermisRequis(vehicule.getTypePermisRequis());
         vehiculeDTO.setEquipementsSpeciaux(vehicule.getEquipementsSpeciaux());
         return vehiculeDTO;
@@ -113,7 +113,7 @@ public class VehiculeService {
         vehicule.setModele(vehiculeDTO.getModele());
         vehicule.setType(vehiculeDTO.getType());
         vehicule.setKilometrage(vehiculeDTO.getKilometrage());
-        vehicule.setDisponible(vehiculeDTO.getDisponible());
+//        vehicule.setDisponible(vehiculeDTO.getDisponible());
         vehicule.setTypePermisRequis(vehiculeDTO.getTypePermisRequis());
         vehicule.setEquipementsSpeciaux(vehiculeDTO.getEquipementsSpeciaux());
         return vehicule;

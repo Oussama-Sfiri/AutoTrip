@@ -1,10 +1,15 @@
 package com.ParcAuto.Ensa.Affectation.Dto;
 
-import lombok.Data;
+import com.ParcAuto.Ensa.Affectation.Entities.Conducteur;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class PermisDTO {
     private String numeroPermis;
     private LocalDate dateRemisePermis;

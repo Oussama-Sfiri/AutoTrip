@@ -1,11 +1,18 @@
 package com.ParcAuto.Ensa.Affectation.Services;
 
+import com.ParcAuto.Ensa.Affectation.Dto.ConducteurDTO;
+import com.ParcAuto.Ensa.Affectation.Dto.VehiculeDTO;
 import com.ParcAuto.Ensa.Affectation.Dto.VoyageDTO;
+import com.ParcAuto.Ensa.Affectation.Entities.Conducteur;
+import com.ParcAuto.Ensa.Affectation.Entities.Vehicule;
 import com.ParcAuto.Ensa.Affectation.Entities.Voyage;
+import com.ParcAuto.Ensa.Affectation.Repositories.ConducteurRepository;
+import com.ParcAuto.Ensa.Affectation.Repositories.VehiculeRepository;
 import com.ParcAuto.Ensa.Affectation.Repositories.VoyageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,8 +42,15 @@ public class VoyageService {
 
     public List<VoyageDTO> getAllVoyages() {
         List<Voyage> voyages = voyageRepository.findAll();
-        return voyages.stream().map(this::voyageToDTO).collect(Collectors.toList());
+        List<VoyageDTO> voyageDTOs = new ArrayList<>();
+
+        for (Voyage voyage : voyages) {
+            voyageDTOs.add(voyageToDTO(voyage));
+        }
+
+        return voyageDTOs;
     }
+
 
     public VoyageDTO updateVoyage(Long id, VoyageDTO voyageDTO) {
         Optional<Voyage> voyageOptional = voyageRepository.findById(id);

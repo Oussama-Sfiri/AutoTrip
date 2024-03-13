@@ -1,6 +1,8 @@
 package com.ParcAuto.Ensa.Affectation.Controllers;
 
 import com.ParcAuto.Ensa.Affectation.Dto.ConducteurDTO;
+import com.ParcAuto.Ensa.Affectation.Entities.Conducteur;
+import com.ParcAuto.Ensa.Affectation.Repositories.ConducteurRepository;
 import com.ParcAuto.Ensa.Affectation.Services.ConducteurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -16,6 +18,8 @@ public class ConducteurController {
 
     @Autowired
     private ConducteurService conducteurService;
+    @Autowired
+    private ConducteurRepository conducteurRepo;
 
     @GetMapping("/{matricule}")
     public ResponseEntity<ConducteurDTO> getConducteurById(@PathVariable String matricule) throws ChangeSetPersister.NotFoundException {
@@ -42,9 +46,10 @@ public class ConducteurController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ConducteurDTO>> getAllConducteurs() {
-        List<ConducteurDTO> conducteurs = conducteurService.getAllConducteurs();
-        return ResponseEntity.ok(conducteurs);
+    public List<Conducteur> getAllConducteurs() {
+//        List<ConducteurDTO> conducteurs = conducteurService.getAllConducteurs();
+//        return ResponseEntity.ok(conducteurs);
+            return conducteurRepo.findAll();
     }
 }
 
