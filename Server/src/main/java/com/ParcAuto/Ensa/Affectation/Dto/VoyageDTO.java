@@ -1,11 +1,17 @@
 package com.ParcAuto.Ensa.Affectation.Dto;
 
-import lombok.Data;
+import com.ParcAuto.Ensa.Affectation.Entities.Conducteur;
+import com.ParcAuto.Ensa.Affectation.Entities.Vehicule;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class VoyageDTO {
     private Long id;
     private LocalDate dateDepart;

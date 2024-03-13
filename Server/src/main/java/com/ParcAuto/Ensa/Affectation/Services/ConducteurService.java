@@ -50,11 +50,11 @@ public class ConducteurService {
         if (conducteurOptional.isPresent()) {
             Conducteur existingConducteur = conducteurOptional.get();
             // Mettez à jour les propriétés du conducteur existant avec celles du DTO
-            existingConducteur.setNom(conducteurDTO.getNom() != null ? conducteurDTO.getNom() : existingConducteur.getNom());
-            existingConducteur.setPrenom(conducteurDTO.getPrenom() != null ? conducteurDTO.getPrenom() : existingConducteur.getPrenom());
-            existingConducteur.setMatricule(conducteurDTO.getMatricule() != null ? conducteurDTO.getMatricule() : existingConducteur.getMatricule());
-            existingConducteur.setDateNaissance(conducteurDTO.getDateNaissance() != null ? conducteurDTO.getDateNaissance() : existingConducteur.getDateNaissance());
-            existingConducteur.setCin(conducteurDTO.getCin() != null ? conducteurDTO.getCin() : existingConducteur.getCin());
+//            existingConducteur.setNom(conducteurDTO.getNom() != null ? conducteurDTO.getNom() : existingConducteur.getNom());
+//            existingConducteur.setPrenom(conducteurDTO.getPrenom() != null ? conducteurDTO.getPrenom() : existingConducteur.getPrenom());
+//            existingConducteur.setMatricule(conducteurDTO.getMatricule() != null ? conducteurDTO.getMatricule() : existingConducteur.getMatricule());
+//            existingConducteur.setDateNaissance(conducteurDTO.getDateNaissance() != null ? conducteurDTO.getDateNaissance() : existingConducteur.getDateNaissance());
+//            existingConducteur.setCin(conducteurDTO.getCin() != null ? conducteurDTO.getCin() : existingConducteur.getCin());
 
             Conducteur updatedConducteur = conducteurRepository.save(existingConducteur);
             return conducteurToDTO(updatedConducteur);
@@ -83,21 +83,21 @@ public class ConducteurService {
 
     private ConducteurDTO conducteurToDTO(Conducteur conducteur) {
         ConducteurDTO conducteurDTO = new ConducteurDTO();
-        conducteurDTO.setMatricule(conducteur.getMatricule());
-        conducteurDTO.setNom(conducteur.getNom());
-        conducteurDTO.setPrenom(conducteur.getPrenom());
-        conducteurDTO.setCin(conducteur.getCin());
-        conducteurDTO.setDateNaissance(conducteur.getDateNaissance());
+//        conducteurDTO.setMatricule(conducteur.getMatricule());
+//        conducteurDTO.setNom(conducteur.getNom());
+//        conducteurDTO.setPrenom(conducteur.getPrenom());
+//        conducteurDTO.setCin(conducteur.getCin());
+//        conducteurDTO.setDateNaissance(conducteur.getDateNaissance());
         return conducteurDTO;
     }
 
     private Conducteur dtoToConducteur(ConducteurDTO conducteurDTO) {
         Conducteur conducteur = new Conducteur();
-        conducteur.setMatricule(conducteurDTO.getMatricule() );
-        conducteur.setNom(conducteurDTO.getNom());
-        conducteur.setPrenom(conducteurDTO.getPrenom());
-        conducteur.setCin(conducteurDTO.getCin());
-        conducteur.setDateNaissance(conducteurDTO.getDateNaissance());
+//        conducteur.setMatricule(conducteurDTO.getMatricule() );
+//        conducteur.setNom(conducteurDTO.getNom());
+//        conducteur.setPrenom(conducteurDTO.getPrenom());
+//        conducteur.setCin(conducteurDTO.getCin());
+//        conducteur.setDateNaissance(conducteurDTO.getDateNaissance());
         return conducteur;
     }
 }

@@ -21,7 +21,4 @@ public class CarteGrise {
    private String Type;
    private int NobmreDePlace;
 
-
-
-
 }
