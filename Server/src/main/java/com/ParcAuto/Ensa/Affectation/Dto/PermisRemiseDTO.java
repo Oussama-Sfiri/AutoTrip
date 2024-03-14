@@ -9,16 +9,19 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class PermisDTO {
+public class PermisRemiseDTO {
+
     private Long id;
-    private int numPermis;
-    private Date finValidite;
-    private List<String> types; // Change type to a list of PermisType
+    private String type;
     private Date dateRemisePermis;
     private String lieuRemisePermis;
+    private Long permisId; // Corresponding foreign key
+    private Long driverId; // Corresponding foreign key
+
 }
