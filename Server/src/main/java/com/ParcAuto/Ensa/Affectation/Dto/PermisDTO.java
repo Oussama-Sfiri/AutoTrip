@@ -16,9 +16,9 @@ import java.util.List;
 @Data
 public class PermisDTO {
     private Long id;
-    private int numPermis;
-    private Date finValidite;
-    private List<String> types; // Change type to a list of PermisType
-    private Date dateRemisePermis;
-    private String lieuRemisePermis;
+    private int num_permis;
+    private Date fin_validite;
+    private List<String> types;
+    private Date date_remise_permis;
+    private String lieu_remise_permis;
 }

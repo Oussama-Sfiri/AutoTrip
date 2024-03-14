@@ -18,8 +18,8 @@ public class DriverDTO {
     private String cin;
     private String nom;
     private String prenom;
-    private Date dateNaissance;
-    private String adresse;
+    private Date date_naissance;
+    private String addresse;
     private boolean disponibility;
     private PermisDTO permis;
 

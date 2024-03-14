@@ -22,7 +22,6 @@ public class Permis {
     private Date fin_validite;
 
     @OneToOne(mappedBy = "permis", cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_driver")
     private Driver driver;
 
     @OneToMany(mappedBy = "permis", cascade = CascadeType.ALL)
