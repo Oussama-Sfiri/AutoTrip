@@ -4,27 +4,28 @@ import lombok.Data;
 
 import jakarta.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
-public class Permis {
-
+public class PermisRemise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private PermisType type;
 
     @Column()
-    private int num_permis;
+    private Date date_remise_permis;
 
     @Column()
-    private Date fin_validite;
+    private String lieu_remise_permis;
 
-    @OneToOne(mappedBy = "permis", cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_permis")
+    private Permis permis;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_driver")
     private Driver driver;
-
-    @OneToMany(mappedBy = "permis", cascade = CascadeType.ALL)
-    private List<PermisRemise> permisTypes;
 }

@@ -2,12 +2,21 @@ package com.ParcAuto.Ensa.Affectation.Dto;
 
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 public class CarteGriseDTO {
-    private LocalDate premiereMiseCirculation;
+
+    private Long id;
+    private String numImmatriculation;
+    private String immAnterieure;
+    private Date premiereMiseCirculation;
+    private Date mcMaroc;
+    private Date mutation;
+    private String usageCG;
+    private String proprietaire;
     private String adresse;
-    private String type;
-    private int nombreDePlaces;
+    private Date finValidite;
+    private Long vehiculeId; // Corresponding foreign key
+
 }

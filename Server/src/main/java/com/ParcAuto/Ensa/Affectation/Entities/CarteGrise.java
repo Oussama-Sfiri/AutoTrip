@@ -2,23 +2,47 @@ package com.ParcAuto.Ensa.Affectation.Entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Data
 public class CarteGrise {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @Column()
+    private String num_Immatriculation;
+
+    @Column()
+    private String imm_anterieure;
+
+    @Column()
+    private Date premiere_mise_Circulation;
+
+    @Column()
+    private Date MC_MAROC;
+
+    private Date mutation;
+
+    @Column()
+    private String usageCG;
+
+    @Column()
+    private String proprietaire;
+
+    @Column()
+    private String adresse;
+
+    @Column()
+    private Date fin_validite;
+
+    @OneToOne(mappedBy = "carteGrise", cascade = CascadeType.ALL)
     private Vehicule vehicule;
-
-
-   private LocalDate premiereMiseCirculation ;
-   private String Adresse ;
-   private String Type;
-   private int NobmreDePlace;
 
 }

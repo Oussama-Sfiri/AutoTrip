@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -16,41 +15,27 @@ public class PermisController {
     @Autowired
     private PermisService permisService;
 
-    @GetMapping("/{numeroPermis}")
-    public ResponseEntity<PermisDTO> getPermisByNumero(@PathVariable String numeroPermis) {
-        PermisDTO permisDTO = permisService.getPermisByNumero(numeroPermis);
-        if (permisDTO != null) {
-            return ResponseEntity.ok(permisDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping
-    public ResponseEntity<List<PermisDTO>> getAllPermis() {
-        List<PermisDTO> permisDTOs = permisService.getAllPermis();
-        return ResponseEntity.ok(permisDTOs);
-    }
-
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<PermisDTO> createPermis(@RequestBody PermisDTO permisDTO) {
         PermisDTO createdPermis = permisService.createPermis(permisDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdPermis);
+        return new ResponseEntity<>(createdPermis, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{numeroPermis}")
-    public ResponseEntity<PermisDTO> updatePermis(@PathVariable String numeroPermis, @RequestBody PermisDTO permisDTO) {
-        PermisDTO updatedPermis = permisService.updatePermis(numeroPermis, permisDTO);
-        if (updatedPermis != null) {
-            return ResponseEntity.ok(updatedPermis);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping()
+    public ResponseEntity<List<PermisDTO>> getAllPermis() {
+        List<PermisDTO> permisList = permisService.getAllPermis();
+        return new ResponseEntity<>(permisList, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{numeroPermis}")
-    public ResponseEntity<Void> deletePermis(@PathVariable String numeroPermis) {
-        permisService.deletePermis(numeroPermis);
-        return ResponseEntity.noContent().build();
+    @GetMapping("/{numPermis}")
+    public ResponseEntity<PermisDTO> getPermisById(@PathVariable int numPermis) throws Exception {
+        PermisDTO permisDTO = permisService.getPermisById(numPermis);
+        return new ResponseEntity<>(permisDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{numPermis}")
+    public ResponseEntity<Void> deletePermis(@PathVariable int numPermis) {
+        permisService.deletePermis(numPermis);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

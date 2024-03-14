@@ -3,19 +3,22 @@ package com.ParcAuto.Ensa.Affectation.Dto;
 import jakarta.annotation.Nullable;
 import lombok.*;
 
-@Getter
-@Setter
+import java.util.List;
+@Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class VehiculeDTO {
-    private String immatriculation;
-    private String marque;
-    private String modele;
-    private String type;
-    private Double kilometrage;
-//    private Boolean disponible;
-    private String typePermisRequis;
-    private String equipementsSpeciaux;
-}
 
+    private Long id;
+    private String marque;
+    private String type;
+    private int kilemotrage;
+    private String typePermisRequis;
+    private String assurance;
+    private int visiteTech;
+    private int vignette;
+    private boolean disponibilite;
+    private Long carteGriseId; // Corresponding foreign key
+
+}
