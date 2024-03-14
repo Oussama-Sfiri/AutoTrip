@@ -44,13 +44,13 @@ public class DriverService {
 
     public static Driver convertToEntity(DriverDTO driverDTO) {
         Driver driver = new Driver();
-        BeanUtils.copyProperties(driverDTO, driver);
+//        BeanUtils.copyProperties(driverDTO, driver);
 
         // Convert PermisDTO to Permis entity
         if (driverDTO.getPermis() != null) {
             PermisDTO permisDTO = driverDTO.getPermis();
             Permis permis = new Permis();
-            BeanUtils.copyProperties(permisDTO, permis);
+//            BeanUtils.copyProperties(permisDTO, permis);
 
             // Convert types List<String> to List<PermisType> and create PermisRemise instances
             if (permisDTO.getTypes() != null) {
