@@ -19,8 +19,8 @@ public class PermisRemiseDTO {
 
     private Long id;
     private String type;
-    private Date dateRemisePermis;
-    private String lieuRemisePermis;
+    private Date date_remise_permis;
+    private String lieu_remise_permis;
     private Long permisId; // Corresponding foreign key
     private Long driverId; // Corresponding foreign key
 
