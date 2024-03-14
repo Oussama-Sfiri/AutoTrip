@@ -1,41 +1,51 @@
 package com.ParcAuto.Ensa.Affectation.Entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Vehicule {
-
     @Id
-    private String immatriculation;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column()
     private String marque;
-    private String modele;
+
+    @Column()
     private String type;
-    private double kilometrage;
+
+    @Column()
+    private int kilemotrage;
+
+    @Column()
     private String typePermisRequis;
-    private String equipementsSpeciaux;
 
-    @OneToMany(targetEntity = Voyage.class ,mappedBy = "vehicule")
-    private List<Voyage> voyages;
+    @Column()
+    private String assurance;
 
-    @OneToOne(mappedBy = "vehicule")
+    @Column()
+    private int visiteTech;
+
+    @Column()
+    private int vignette;
+
+    @Column()
+    private boolean disponibilite;
+
+    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
+    private List<Trip> trip;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_carteGrise", referencedColumnName = "id")
     private CarteGrise carteGrise;
-    @Override
-    public String toString() {
-        return "Vehicule{" +
-                "immatriculation='" + immatriculation + '\'' +
-                ", marque='" + marque + '\'' +
-                ", modele='" + modele + '\'' +
-                ", type='" + type + '\'' +
-                ", kilometrage=" + kilometrage +
-                ", typePermisRequis='" + typePermisRequis + '\'' +
-                ", equipementsSpeciaux='" + equipementsSpeciaux + '\'' +
-                '}';
-    }
+
 
 }
-
