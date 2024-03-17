@@ -16,10 +16,17 @@ public class DriverController {
     private DriverService driverService;
 
     @PostMapping()
-    public ResponseEntity<DriverDTO> createDriver(@RequestBody DriverDTO driverDTO) {
-        DriverDTO createdDriver = driverService.createDriver(driverDTO);
-        return new ResponseEntity<>(createdDriver, HttpStatus.CREATED);
+    public ResponseEntity<?> createDriver(@RequestBody DriverDTO driverDTO) {
+        try {
+            ResponseEntity<?> createdDriverResponse = driverService.createDriver(driverDTO);
+            return ResponseEntity.status(createdDriverResponse.getStatusCode())
+                    .body(createdDriverResponse.getBody());
+        } catch (Exception ex) {
+            String errorMessage = "An unexpected error occurred: " + ex.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+        }
     }
+
 
     @GetMapping()
     public ResponseEntity<List<DriverDTO>> getAllDrivers() {
@@ -28,13 +35,13 @@ public class DriverController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DriverDTO> getDriverById(@PathVariable String id) throws Exception {
+    public ResponseEntity<DriverDTO> getDriverById(@PathVariable Long id) throws Exception {
         DriverDTO driver = driverService.getDriverById(id);
         return new ResponseEntity<>(driver, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDriver(@PathVariable String id) {
+    public ResponseEntity<Void> deleteDriver(@PathVariable Long id) {
         driverService.deleteDriver(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

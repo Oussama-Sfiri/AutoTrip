@@ -1,29 +1,44 @@
 package com.ParcAuto.Ensa.Affectation.mappers;
-
 import com.ParcAuto.Ensa.Affectation.Dto.PermisRemiseDTO;
+import com.ParcAuto.Ensa.Affectation.Entities.Driver;
+import com.ParcAuto.Ensa.Affectation.Entities.Permis;
 import com.ParcAuto.Ensa.Affectation.Entities.PermisRemise;
-import com.ParcAuto.Ensa.Affectation.Entities.PermisType;
-import org.springframework.beans.BeanUtils;
+
 
 public class PermisRemiseMappers {
+
+
+
     public static PermisRemiseDTO PermisRemiseToDTO(PermisRemise permisRemise) {
         PermisRemiseDTO permisRemiseDTO = new PermisRemiseDTO();
         permisRemiseDTO.setId(permisRemise.getId());
-        permisRemiseDTO.setType(permisRemise.getType().toString());
+        permisRemiseDTO.setType(permisRemise.getType());
         permisRemiseDTO.setDate_remise_permis(permisRemise.getDate_remise_permis());
         permisRemiseDTO.setLieu_remise_permis(permisRemise.getLieu_remise_permis());
-        permisRemiseDTO.setPermisId(permisRemise.getPermis().getId());
-        permisRemiseDTO.setDriverId(permisRemise.getDriver().getId());
+        Permis permis = permisRemise.getPermis();
+        if (permis != null) {
+            permisRemiseDTO.setNumPermis(permis.getNumPermis());
+        }
+        Driver driver = permisRemise.getDriver();
+        if (driver != null) {
+            permisRemiseDTO.setCin(driver.getCin());
+        }
         return permisRemiseDTO;
     }
 
-    public static PermisRemise DTOToPermisRemise(PermisRemiseDTO permisRemiseDTO) {
+
+    public static PermisRemise DTOToPermisRemise(PermisRemiseDTO permisRemiseDTO, Permis permis, Driver driver) {
         PermisRemise permisRemise = new PermisRemise();
-        permisRemise.setId(permisRemiseDTO.getId());
-        permisRemise.setType(PermisType.valueOf(permisRemiseDTO.getType()));
+        permisRemise.setType(permisRemiseDTO.getType());
         permisRemise.setDate_remise_permis(permisRemiseDTO.getDate_remise_permis());
         permisRemise.setLieu_remise_permis(permisRemiseDTO.getLieu_remise_permis());
-        // Set permis and driver if needed
+        permisRemise.setPermis(permis);
+        permisRemise.setDriver(driver);
         return permisRemise;
     }
+
+
+
+
+
 }

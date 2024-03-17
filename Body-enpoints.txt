@@ -1,0 +1,23 @@
+POST : http://localhost:8080/drivers
+
+{
+    "cin": "AB12345",
+    "nom": "Mohamed",
+    "prenom": "Assami",
+    "date_naissance": "1990-01-01",
+    "addresse": "123 Main St",
+    "disponibility": true,
+    "permis": {
+        "numPermis": 123456,
+        "fin_validite": "2024-12-30"
+    }
+}
+
+POST : http://localhost:8080/permisremise
+{
+    "type": "C",
+    "date_remise_permis": "2042-01-14",
+    "lieu_remise_permis": "City A",
+    "numPermis": 123456,
+    "cin": "AB12345"
+}

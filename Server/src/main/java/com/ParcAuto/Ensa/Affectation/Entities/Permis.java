@@ -15,8 +15,8 @@ public class Permis {
     private Long id;
 
 
-    @Column()
-    private int num_permis;
+    @Column(name = "numPermis")
+    private Long numPermis;
 
     @Column()
     private Date fin_validite;
@@ -25,5 +25,7 @@ public class Permis {
     private Driver driver;
 
     @OneToMany(mappedBy = "permis", cascade = CascadeType.ALL)
-    private List<PermisRemise> permisTypes;
+    private List<PermisRemise> permisRemises;
+
+
 }

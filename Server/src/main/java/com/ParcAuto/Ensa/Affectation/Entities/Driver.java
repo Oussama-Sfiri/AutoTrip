@@ -37,7 +37,8 @@ public class Driver {
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Trip> trip;
 
-    @OneToOne( cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_permis")
     private Permis permis;
+
 }
