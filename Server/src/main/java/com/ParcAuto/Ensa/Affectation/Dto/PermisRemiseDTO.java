@@ -16,12 +16,10 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Data
 public class PermisRemiseDTO {
-
     private Long id;
-    private String type;
+    private PermisType type;
     private Date date_remise_permis;
     private String lieu_remise_permis;
-    private Long permisId; // Corresponding foreign key
-    private Long driverId; // Corresponding foreign key
-
+    private Long numPermis;
+    private String cin;
 }

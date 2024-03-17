@@ -26,14 +26,14 @@ public class PermisService {
         return permisList.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public PermisDTO getPermisById(int numPermis) throws Exception {
-        Permis permis = permisRepository.findById(String.valueOf(numPermis))
-                .orElseThrow(() -> new Exception("Permis not found with ID: " + numPermis));
+    public PermisDTO getPermisById(Long id) throws Exception {
+        Permis permis = permisRepository.findById(id)
+                .orElseThrow(() -> new Exception("Permis not found with ID: " ));
         return convertToDTO(permis);
     }
 
-    public void deletePermis(int numPermis) {
-        permisRepository.deleteById(String.valueOf(numPermis));
+    public void deletePermis(Long id) {
+        permisRepository.deleteById(id);
     }
 
     private Permis convertToEntity(PermisDTO permisDTO) {

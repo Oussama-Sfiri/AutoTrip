@@ -28,14 +28,14 @@ public class PermisController {
     }
 
     @GetMapping("/{numPermis}")
-    public ResponseEntity<PermisDTO> getPermisById(@PathVariable int numPermis) throws Exception {
-        PermisDTO permisDTO = permisService.getPermisById(numPermis);
+    public ResponseEntity<PermisDTO> getPermisById(@PathVariable Long id) throws Exception {
+        PermisDTO permisDTO = permisService.getPermisById(id);
         return new ResponseEntity<>(permisDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/{numPermis}")
-    public ResponseEntity<Void> deletePermis(@PathVariable int numPermis) {
-        permisService.deletePermis(numPermis);
+    public ResponseEntity<Void> deletePermis(@PathVariable Long id) {
+        permisService.deletePermis(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

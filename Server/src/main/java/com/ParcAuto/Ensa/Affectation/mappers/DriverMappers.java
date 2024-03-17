@@ -1,15 +1,12 @@
 package com.ParcAuto.Ensa.Affectation.mappers;
 
 import com.ParcAuto.Ensa.Affectation.Dto.DriverDTO;
-import com.ParcAuto.Ensa.Affectation.Dto.PermisDTO;
+import com.ParcAuto.Ensa.Affectation.Dto.PermisRemiseDTO;
 import com.ParcAuto.Ensa.Affectation.Entities.Driver;
 import com.ParcAuto.Ensa.Affectation.Entities.Permis;
-import com.ParcAuto.Ensa.Affectation.Entities.PermisRemise;
-import com.ParcAuto.Ensa.Affectation.Entities.PermisType;
 import org.springframework.beans.BeanUtils;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DriverMappers {
 
@@ -17,27 +14,27 @@ public class DriverMappers {
     public static DriverDTO DriverToDTO(Driver driver) {
         DriverDTO driverDTO = new DriverDTO();
         BeanUtils.copyProperties(driver, driverDTO);
-
         if (driver.getPermis() != null) {
-            PermisDTO permisDTO = PermisMappers.PermisToDTO(driver.getPermis());
-            driverDTO.setPermis(permisDTO);
+            driverDTO.setPermis(PermisMappers.PermisToDTO(driver.getPermis()));
         }
-
-        // Additional mapping if needed
         return driverDTO;
     }
 
+
     public static Driver DTOToDriver(DriverDTO driverDTO) {
         Driver driver = new Driver();
-        BeanUtils.copyProperties(driverDTO, driver);
-
+        driver.setCin(driverDTO.getCin());
+        driver.setNom(driverDTO.getNom());
+        driver.setPrenom(driverDTO.getPrenom());
+        driver.setDate_naissance(driverDTO.getDate_naissance());
+        driver.setAddresse(driverDTO.getAddresse());
+        driver.setDisponibility(driverDTO.isDisponibility());
         if (driverDTO.getPermis() != null) {
             Permis permis = PermisMappers.DTOToPermis(driverDTO.getPermis());
             driver.setPermis(permis);
         }
-
-        // Additional mapping if needed
         return driver;
     }
+
 
 }

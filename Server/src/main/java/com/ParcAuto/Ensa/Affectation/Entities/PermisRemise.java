@@ -21,11 +21,11 @@ public class PermisRemise {
     @Column()
     private String lieu_remise_permis;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_permis")
     private Permis permis;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_driver")
     private Driver driver;
 }

@@ -2,6 +2,7 @@ package com.ParcAuto.Ensa.Affectation.Dto;
 
 import com.ParcAuto.Ensa.Affectation.Entities.PermisRemise;
 import com.ParcAuto.Ensa.Affectation.Entities.PermisType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,9 +17,7 @@ import java.util.List;
 @Data
 public class PermisDTO {
     private Long id;
-    private int num_permis;
+    private Long numPermis;
     private Date fin_validite;
-    private List<String> types;
-    private Date date_remise_permis;
-    private String lieu_remise_permis;
+    private List<PermisRemiseDTO> permisRemises;
 }

@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface DriverRepository extends JpaRepository<Driver, Long> {
 
+    Optional<Driver> findByCin(String cin);
 }
 
