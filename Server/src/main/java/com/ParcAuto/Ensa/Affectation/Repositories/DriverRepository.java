@@ -20,6 +20,12 @@ public interface DriverRepository extends JpaRepository<Driver, Long> {
 
 
 
+    @Query("SELECT DISTINCT d FROM Driver d " +
+            "JOIN FETCH d.permis p " +
+            "JOIN FETCH p.permisRemises pr " +
+            "WHERE pr.type = :permitType " +
+            "AND d.disponibility = true")
+    List<Driver> getAvailableDriversForTrip(PermisType permitType);
 
 }
 
