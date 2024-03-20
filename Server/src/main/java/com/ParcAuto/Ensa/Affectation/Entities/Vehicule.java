@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -32,10 +33,10 @@ public class Vehicule {
     private String assurance;
 
     @Column()
-    private int visiteTech;
+    private Date visiteTech;
 
     @Column()
-    private int vignette;
+    private Date vignette;
 
     @Column()
     private boolean disponibilite;

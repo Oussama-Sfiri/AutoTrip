@@ -4,6 +4,7 @@ import com.ParcAuto.Ensa.Affectation.Entities.PermisType;
 import jakarta.annotation.Nullable;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 @Builder
 @Data
@@ -17,8 +18,8 @@ public class VehiculeDTO {
     private int kilemotrage;
     private PermisType typePermisRequis;
     private String assurance;
-    private int visiteTech;
-    private int vignette;
+    private Date visiteTech;
+    private Date vignette;
     private boolean disponibilite;
     private CarteGriseDTO carteGrise;
 

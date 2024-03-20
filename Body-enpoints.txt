@@ -1,49 +1,163 @@
 POST : http://localhost:8080/drivers :
 {
-    "cin": "AB12345",
-    "nom": "Mohamed",
-    "prenom": "Assami",
-    "date_naissance": "1990-01-01",
-    "addresse": "123 Main St",
+    "cin": "JK98765",
+    "nom": "Sophie",
+    "prenom": "Lefebvre",
+    "date_naissance": "1987-07-20",
+    "addresse": "321 Maple St",
     "disponibility": true,
     "permis": {
-        "numPermis": 123456,
-        "fin_validite": "2024-12-30"
+        "numPermis": 135792,
+        "fin_validite": "2023-09-25"
+    }
+}
+{
+    "cin": "LM54321",
+    "nom": "David",
+    "prenom": "Smith",
+    "date_naissance": "1979-03-12",
+    "addresse": "567 Pine St",
+    "disponibility": true,
+    "permis": {
+        "numPermis": 987654,
+        "fin_validite": "2024-11-18"
+    }
+}
+{
+    "cin": "NO12345",
+    "nom": "Maria",
+    "prenom": "Garcia",
+    "date_naissance": "1992-11-05",
+    "addresse": "789 Elm St",
+    "disponibility": true,
+    "permis": {
+        "numPermis": 246810,
+        "fin_validite": "2022-07-30"
+    }
+}
+{
+    "cin": "PQ67890",
+    "nom": "Michael",
+    "prenom": "Johnson",
+    "date_naissance": "1984-06-18",
+    "addresse": "901 Oak St",
+    "disponibility": true,
+    "permis": {
+        "numPermis": 864209,
+        "fin_validite": "2025-04-12"
     }
 }
 
+
+
+
 POST : http://localhost:8080/permisremise :
+{
+    "type": "B",
+    "date_remise_permis": "2042-01-14",
+    "lieu_remise_permis": "City A",
+    "numPermis": 135792,
+    "cin": "JK98765"
+}
 {
     "type": "C",
     "date_remise_permis": "2042-01-14",
     "lieu_remise_permis": "City A",
-    "numPermis": 123456,
-    "cin": "AB12345"
+    "numPermis": 987654,
+     "cin": "LM54321"
 }
-
-
-POST : http://localhost:8080/carteGrise :
 {
-    "num_Immatriculation": "ABC123",
-    "imm_anterieure": "DEF456",
-    "premiere_mise_Circulation": "2022-01-01T00:00:00.000Z",
-    "mc_maroc": "2022-01-01T00:00:00.000Z",
-    "mutation": "2022-01-01T00:00:00.000Z",
-    "usageCG": "Commercial",
-    "proprietaire": "John Doe",
-    "adresse": "123 Main St",
-    "fin_validite": "2023-01-01T00:00:00.000Z"
+    "type": "D",
+    "date_remise_permis": "2042-01-14",
+    "lieu_remise_permis": "City A",
+     "numPermis": 246810,
+      "cin": "NO12345"
 }
+{
+    "type": "EC",
+    "date_remise_permis": "2042-01-14",
+    "lieu_remise_permis": "City A",
+    "numPermis": 864209,
+     "cin": "PQ67890"
+}
+
+
+
+
+
 
 POST : http://localhost:8080/vehicules :
 {
+    "marque": "Volvo",
+    "type": "Truck",
+    "kilometrage": 90000,
+    "typePermisRequis": "EC",
+    "assurance": "Progressive",
+    "visiteTech": "2022-01-01T00:00:00.000Z",
+    "vignette": "2023-01-01T00:00:00.000Z",
+    "disponibilite": true,
+    "carteGrise": {
+        "num_Immatriculation": "STU789",
+        "imm_anterieure": "VWX012",
+        "premiere_mise_Circulation": "2018-01-01T00:00:00.000Z",
+        "mc_maroc": "2018-01-01T00:00:00.000Z",
+        "mutation": "2018-01-01T00:00:00.000Z",
+        "usageCG": "Commercial",
+        "proprietaire": "Alice Brown",
+        "adresse": "101 Pine St",
+        "fin_validite": "2020-01-01T00:00:00.000Z"
+    }
+}
+{
+    "marque": "Ford",
+    "type": "Fourgonette",
+    "kilometrage": 60000,
+    "typePermisRequis": "C",
+    "assurance": "StateFarm",
+    "visiteTech": "2024-01-01T00:00:00.000Z",
+    "vignette": "2025-01-01T00:00:00.000Z",
+    "disponibilite": true,
+    "carteGrise": {
+        "num_Immatriculation": "LMN456",
+        "imm_anterieure": "OPQ789",
+        "premiere_mise_Circulation": "2021-01-01T00:00:00.000Z",
+        "mc_maroc": "2021-01-01T00:00:00.000Z",
+        "mutation": "2021-01-01T00:00:00.000Z",
+        "usageCG": "Commercial",
+        "proprietaire": "Michael Johnson",
+        "adresse": "789 Elm St",
+        "fin_validite": "2023-01-01T00:00:00.000Z"
+    }
+}
+{
+    "marque": "Mercedes",
+    "type": "Bus",
+    "kilometrage": 75000,
+    "typePermisRequis": "D",
+    "assurance": "Allianz",
+    "visiteTech": "2023-01-01T00:00:00.000Z",
+    "vignette": "2024-01-01T00:00:00.000Z",
+    "disponibilite": true,
+    "carteGrise": {
+        "num_Immatriculation": "XYZ789",
+        "imm_anterieure": "GHI101",
+        "premiere_mise_Circulation": "2020-01-01T00:00:00.000Z",
+        "mc_maroc": "2020-01-01T00:00:00.000Z",
+        "mutation": "2020-01-01T00:00:00.000Z",
+        "usageCG": "Commercial",
+        "proprietaire": "Jane Smith",
+        "adresse": "456 Oak St",
+        "fin_validite": "2022-01-01T00:00:00.000Z"
+    }
+}
+{
     "marque": "Toyota",
     "type": "Car",
-    "kilemotrage": 50000,
+    "kilometrage": 50000,
     "typePermisRequis": "B",
     "assurance": "AXA",
-    "visiteTech": 2024,
-    "vignette": 2025,
+    "visiteTech": "2024-01-01T00:00:00.000Z",
+    "vignette": "2025-01-01T00:00:00.000Z",
     "disponibilite": true,
     "carteGrise": {
         "num_Immatriculation": "ABC123",
@@ -57,6 +171,9 @@ POST : http://localhost:8080/vehicules :
         "fin_validite": "2023-01-01T00:00:00.000Z"
     }
 }
+
+
+
 
 POST : http://localhost:8080/trips
 {
