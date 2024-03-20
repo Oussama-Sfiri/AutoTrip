@@ -1,6 +1,7 @@
 package com.ParcAuto.Ensa.Affectation.Dto;
 
 import com.ParcAuto.Ensa.Affectation.Entities.VehiculeType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.sql.Time;
@@ -20,8 +21,8 @@ public class TripDTO {
     private Time arrivalTime;
     private int nbrOfPassengers;
     private String statusConfirmation;
-    private String vehiculType;
-    private Long vehiculeId;
-    private Long driverId;
+
+
+    private VehiculeType vehiculType;
 
 }
