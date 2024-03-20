@@ -58,3 +58,14 @@ POST : http://localhost:8080/vehicules :
     }
 }
 
+POST : http://localhost:8080/trips
+{
+    "departure": "Agadir",
+    "destination": "Madrid",
+    "departureDate": "2024-04-01",
+    "departureTime": "09:00:00",
+    "arrivalDate": "2024-04-02",
+    "arrivalTime": "08:00:00",
+    "nbrOfPassengers":5 ,
+    "vehiculType": "Fourgonette"
+}

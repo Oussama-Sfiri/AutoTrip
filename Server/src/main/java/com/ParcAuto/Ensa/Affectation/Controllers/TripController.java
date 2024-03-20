@@ -13,40 +13,29 @@ import java.util.List;
 @RequestMapping("/trips")
 public class TripController {
 
-//    private final TripService tripService;
-//
-//    @Autowired
-//    public TripController(TripService tripService) {
-//        this.tripService = tripService;
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<TripDTO> getTripById(@PathVariable("id") Long id) {
-//        TripDTO tripDTO = tripService.getTripById(id);
-//        return ResponseEntity.ok(tripDTO);
-//    }
-//
-//    @GetMapping
-//    public ResponseEntity<List<TripDTO>> getAllTrips() {
-//        List<TripDTO> tripDTOList = tripService.getAllTrips();
-//        return ResponseEntity.ok(tripDTOList);
-//    }
-//
-//    @PostMapping
-//    public ResponseEntity<TripDTO> createTrip(@RequestBody TripDTO tripDTO) {
-//        TripDTO createdTripDTO = tripService.createTrip(tripDTO);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(createdTripDTO);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<TripDTO> updateTrip(@PathVariable("id") Long id, @RequestBody TripDTO tripDTO) {
-//        TripDTO updatedTripDTO = tripService.updateTrip(id, tripDTO);
-//        return ResponseEntity.ok(updatedTripDTO);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteTrip(@PathVariable("id") Long id) {
-//        tripService.deleteTrip(id);
-//        return ResponseEntity.noContent().build();
-//    }
+  private final TripService tripService;
+
+    @Autowired
+    public TripController(TripService tripService) {
+        this.tripService = tripService;
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createTrip(@RequestBody TripDTO tripDTO) {
+        ResponseEntity<?> createdTrip = tripService.createTrip(tripDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdTrip).getBody();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TripDTO>> getAllTrips() {
+        List<TripDTO> tripDTOs = tripService.getAllTrips();
+        return ResponseEntity.ok(tripDTOs);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<TripDTO> getTripById(@PathVariable Long id) {
+        TripDTO tripDTO = tripService.getTripById(id);
+        return ResponseEntity.ok(tripDTO);
+    }
+
+
 }

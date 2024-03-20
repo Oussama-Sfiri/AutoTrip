@@ -39,7 +39,7 @@ public class Trip {
     private int nbrOfPassengers;
 
     @Column()
-    private String status_confirmation;
+    private String statusConfirmation;
 
     @Enumerated(EnumType.STRING)
     private VehiculeType vehiculType;
