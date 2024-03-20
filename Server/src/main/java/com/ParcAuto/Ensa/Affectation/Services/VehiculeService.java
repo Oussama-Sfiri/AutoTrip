@@ -24,12 +24,11 @@ public class VehiculeService {
     }
 
     public VehiculeDTO createVehicule(VehiculeDTO vehiculeDTO) {
-        CarteGriseDTO carteGriseDTO = vehiculeDTO.getCarteGrise();
-        CarteGrise carteGrise = CarteGriseMappers.DTOToCarteGrise(carteGriseDTO);
-        Vehicule vehicule = VehiculeMappers.DTOToVehicule(vehiculeDTO, carteGrise);
+        Vehicule vehicule = VehiculeMappers.DTOToVehicule(vehiculeDTO);
         vehicule = vehiculeRepository.save(vehicule);
         return VehiculeMappers.VehiculeToDTO(vehicule);
     }
+
 
     public List<VehiculeDTO> getAllVehicles() {
         List<Vehicule> allVehicles = vehiculeRepository.findAll();

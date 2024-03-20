@@ -42,7 +42,7 @@ public class Trip {
     @Enumerated(EnumType.STRING)
     private VehiculeType vehiculType;
 
-    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "fk_vehicule")
     private Vehicule vehicule;
 

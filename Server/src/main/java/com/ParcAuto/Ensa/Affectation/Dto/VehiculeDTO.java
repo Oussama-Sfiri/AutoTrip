@@ -1,5 +1,6 @@
 package com.ParcAuto.Ensa.Affectation.Dto;
 
+import com.ParcAuto.Ensa.Affectation.Entities.PermisType;
 import jakarta.annotation.Nullable;
 import lombok.*;
 
@@ -14,7 +15,7 @@ public class VehiculeDTO {
     private String marque;
     private String type;
     private int kilemotrage;
-    private String typePermisRequis;
+    private PermisType typePermisRequis;
     private String assurance;
     private int visiteTech;
     private int vignette;

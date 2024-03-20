@@ -23,5 +23,6 @@ public class TripDTO {
     private String statusConfirmation;
     private VehiculeType vehiculType;
     private DriverDTO driver;
+    private VehiculeDTO vehicule;
 
 }

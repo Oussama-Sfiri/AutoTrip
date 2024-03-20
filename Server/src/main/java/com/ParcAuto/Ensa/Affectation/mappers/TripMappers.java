@@ -12,12 +12,12 @@ public class TripMappers {
     public static TripDTO tripToDTO(Trip trip) {
         TripDTO tripDTO = new TripDTO();
         BeanUtils.copyProperties(trip, tripDTO);
-
-        // Check if the Trip has an associated Driver
         if (trip.getDriver() != null) {
             tripDTO.setDriver(DriverMappers.DriverToDTO(trip.getDriver()));
         }
-
+        if (trip.getVehicule() != null) {
+            tripDTO.setVehicule(VehiculeMappers.VehiculeToDTO(trip.getVehicule()));
+        }
         return tripDTO;
     }
 
@@ -26,6 +26,9 @@ public class TripMappers {
         BeanUtils.copyProperties(tripDTO, trip);
         if (tripDTO.getDriver() != null) {
             trip.setDriver(DriverMappers.DTOToDriver(tripDTO.getDriver()));
+        }
+        if (tripDTO.getVehicule() != null) {
+            trip.setVehicule(VehiculeMappers.DTOToVehicule(tripDTO.getVehicule()));
         }
         return trip;
     }
