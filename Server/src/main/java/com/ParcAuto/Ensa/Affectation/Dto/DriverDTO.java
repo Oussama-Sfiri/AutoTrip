@@ -24,6 +24,5 @@ public class DriverDTO {
     private PermisDTO permis;
 
 
-    public DriverDTO(String errorMessage) {
-    }
+
 }
