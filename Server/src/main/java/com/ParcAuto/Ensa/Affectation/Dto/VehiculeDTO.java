@@ -19,6 +19,6 @@ public class VehiculeDTO {
     private int visiteTech;
     private int vignette;
     private boolean disponibilite;
-    private Long carteGriseId; // Corresponding foreign key
+    private Long carteGriseId;
 
 }

@@ -1,23 +1,23 @@
-//package com.ParcAuto.Ensa.Affectation.Services;
-//
-//import com.ParcAuto.Ensa.Affectation.Dto.TripDTO;
-//import com.ParcAuto.Ensa.Affectation.Entities.Trip;
-//import com.ParcAuto.Ensa.Affectation.Repositories.TripRepository;
-//import org.modelmapper.ModelMapper;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
-//
-//import java.util.List;
-//import java.util.stream.Collectors;
-//
-//@Service
-//@Transactional
-//public class TripService {
-//
+package com.ParcAuto.Ensa.Affectation.Services;
+
+import com.ParcAuto.Ensa.Affectation.Dto.TripDTO;
+import com.ParcAuto.Ensa.Affectation.Entities.Trip;
+import com.ParcAuto.Ensa.Affectation.Repositories.TripRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@Transactional
+public class TripService {
+
 //    private final TripRepository tripRepository;
-//    private final ModelMapper modelMapper;
-//
+
+
 //    @Autowired
 //    public TripService(TripRepository tripRepository, ModelMapper modelMapper) {
 //        this.tripRepository = tripRepository;
@@ -67,4 +67,4 @@
 //    private Trip convertToEntity(TripDTO tripDTO) {
 //        return modelMapper.map(tripDTO, Trip.class);
 //    }
-//}
+}

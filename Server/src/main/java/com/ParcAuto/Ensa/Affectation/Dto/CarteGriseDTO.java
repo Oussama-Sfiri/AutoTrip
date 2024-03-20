@@ -8,15 +8,14 @@ import java.util.Date;
 public class CarteGriseDTO {
 
     private Long id;
-    private String numImmatriculation;
-    private String immAnterieure;
-    private Date premiereMiseCirculation;
-    private Date mcMaroc;
+    private String num_Immatriculation;
+    private String imm_anterieure;
+    private Date premiere_mise_Circulation;
+    private Date mc_maroc;
     private Date mutation;
     private String usageCG;
     private String proprietaire;
     private String adresse;
-    private Date finValidite;
-    private Long vehiculeId; // Corresponding foreign key
+    private Date fin_validite;
 
 }

@@ -26,8 +26,9 @@ public class CarteGrise {
     private Date premiere_mise_Circulation;
 
     @Column()
-    private Date MC_MAROC;
+    private Date mc_maroc;
 
+    @Column
     private Date mutation;
 
     @Column()
