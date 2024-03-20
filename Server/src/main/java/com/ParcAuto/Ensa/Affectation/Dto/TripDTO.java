@@ -21,8 +21,7 @@ public class TripDTO {
     private Time arrivalTime;
     private int nbrOfPassengers;
     private String statusConfirmation;
-
-
     private VehiculeType vehiculType;
+    private DriverDTO driver;
 
 }
