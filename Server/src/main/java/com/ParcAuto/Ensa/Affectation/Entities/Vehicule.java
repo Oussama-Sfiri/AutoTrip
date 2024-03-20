@@ -25,8 +25,8 @@ public class Vehicule {
     @Column()
     private int kilemotrage;
 
-    @Column()
-    private String typePermisRequis;
+    @Enumerated(EnumType.STRING)
+    private PermisType typePermisRequis;
 
     @Column()
     private String assurance;

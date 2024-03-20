@@ -8,10 +8,15 @@ import org.springframework.beans.BeanUtils;
 
 public class VehiculeMappers {
 
-    public static Vehicule DTOToVehicule(VehiculeDTO vehiculeDTO, CarteGrise carteGrise) {
+    public static Vehicule DTOToVehicule(VehiculeDTO vehiculeDTO) {
         Vehicule vehicule = new Vehicule();
         BeanUtils.copyProperties(vehiculeDTO, vehicule);
-        vehicule.setCarteGrise(carteGrise); // Set the corresponding CarteGrise
+        if (vehiculeDTO.getCarteGrise() != null) {
+            CarteGriseDTO carteGriseDTO = vehiculeDTO.getCarteGrise();
+            CarteGrise carteGrise = new CarteGrise();
+            BeanUtils.copyProperties(carteGriseDTO, carteGrise);
+            vehicule.setCarteGrise(carteGrise);
+        }
         return vehicule;
     }
 

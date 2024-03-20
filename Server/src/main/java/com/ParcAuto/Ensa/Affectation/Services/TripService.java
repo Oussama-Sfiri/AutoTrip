@@ -2,12 +2,10 @@ package com.ParcAuto.Ensa.Affectation.Services;
 
 import com.ParcAuto.Ensa.Affectation.Dto.DriverDTO;
 import com.ParcAuto.Ensa.Affectation.Dto.TripDTO;
-import com.ParcAuto.Ensa.Affectation.Entities.Driver;
-import com.ParcAuto.Ensa.Affectation.Entities.PermisType;
-import com.ParcAuto.Ensa.Affectation.Entities.Trip;
-import com.ParcAuto.Ensa.Affectation.Entities.VehiculeType;
+import com.ParcAuto.Ensa.Affectation.Entities.*;
 import com.ParcAuto.Ensa.Affectation.Repositories.DriverRepository;
 import com.ParcAuto.Ensa.Affectation.Repositories.TripRepository;
+import com.ParcAuto.Ensa.Affectation.Repositories.VehiculeRepository;
 import com.ParcAuto.Ensa.Affectation.Utils.PermitUtils;
 import com.ParcAuto.Ensa.Affectation.mappers.TripMappers;
 import org.springframework.beans.BeanUtils;
@@ -28,12 +26,14 @@ public class TripService {
 
     private final TripRepository tripRepository;
     private final DriverRepository driverRepository;
+    private final VehiculeRepository vehiculeRepository;
 
 
     @Autowired
-    public TripService(TripRepository tripRepository , DriverRepository driverRepository) {
+    public TripService(TripRepository tripRepository , DriverRepository driverRepository , VehiculeRepository vehiculeRepository) {
         this.tripRepository = tripRepository;
         this.driverRepository = driverRepository;
+        this.vehiculeRepository = vehiculeRepository;
 
     }
 
@@ -59,20 +59,31 @@ public class TripService {
 
         VehiculeType vehiculeType = tripDTO.getVehiculType();
         PermisType permitType = PermitUtils.getPermisForVehiculeType(vehiculeType);
-        List<Driver> availableDrivers = driverRepository.getAvailableDriversForTrip(permitType);
 
+        // Searching for Driver :
+        List<Driver> availableDrivers = driverRepository.getAvailableDriversForTrip(permitType);
         if (availableDrivers.isEmpty()) {
             return ResponseEntity.badRequest().body("No available driver for this trip");
         }
+        // Searching for Vehicule :
+        List<Vehicule> availableVehicles = vehiculeRepository.getAvailableVehiclesForTrip(permitType);
+        if (availableVehicles.isEmpty()) {
+            return ResponseEntity.badRequest().body("No available vehicle for this trip");
+        }
 
-        // Get the first available driver
         Driver driver = availableDrivers.get(0);
+        Vehicule vehicule = availableVehicles.get(0);
 
-        // Set the driver for the trip
         Trip trip = TripMappers.dtoToTrip(tripDTO);
         trip.setDriver(driver);
+        trip.setVehicule(vehicule);
+
         driver.setDisponibility(false);
+        vehicule.setDisponibilite(false);
         driverRepository.save(driver);
+        vehiculeRepository.save(vehicule);
+
+
 
         // Save the trip
         Trip savedTrip = tripRepository.save(trip);
