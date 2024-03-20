@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface VehiculeRepository extends JpaRepository<Vehicule, Integer> {
-    // Add custom query methods if needed
+public interface VehiculeRepository extends JpaRepository<Vehicule, Long> {
 }

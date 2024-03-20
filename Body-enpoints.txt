@@ -1,5 +1,4 @@
-POST : http://localhost:8080/drivers
-
+POST : http://localhost:8080/drivers :
 {
     "cin": "AB12345",
     "nom": "Mohamed",
@@ -13,7 +12,7 @@ POST : http://localhost:8080/drivers
     }
 }
 
-POST : http://localhost:8080/permisremise
+POST : http://localhost:8080/permisremise :
 {
     "type": "C",
     "date_remise_permis": "2042-01-14",
@@ -23,7 +22,7 @@ POST : http://localhost:8080/permisremise
 }
 
 
-POST : http://localhost:8080/carteGrise
+POST : http://localhost:8080/carteGrise :
 {
     "num_Immatriculation": "ABC123",
     "imm_anterieure": "DEF456",
@@ -35,3 +34,27 @@ POST : http://localhost:8080/carteGrise
     "adresse": "123 Main St",
     "fin_validite": "2023-01-01T00:00:00.000Z"
 }
+
+POST : http://localhost:8080/vehicules :
+{
+    "marque": "Toyota",
+    "type": "Car",
+    "kilemotrage": 50000,
+    "typePermisRequis": "B",
+    "assurance": "AXA",
+    "visiteTech": 2024,
+    "vignette": 2025,
+    "disponibilite": true,
+    "carteGrise": {
+        "num_Immatriculation": "ABC123",
+        "imm_anterieure": "DEF456",
+        "premiere_mise_Circulation": "2022-01-01T00:00:00.000Z",
+        "mc_maroc": "2022-01-01T00:00:00.000Z",
+        "mutation": "2022-01-01T00:00:00.000Z",
+        "usageCG": "Commercial",
+        "proprietaire": "John Doe",
+        "adresse": "123 Main St",
+        "fin_validite": "2023-01-01T00:00:00.000Z"
+    }
+}
+
