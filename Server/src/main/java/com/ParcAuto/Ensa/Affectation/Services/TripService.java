@@ -1,9 +1,13 @@
 package com.ParcAuto.Ensa.Affectation.Services;
 
 import com.ParcAuto.Ensa.Affectation.Dto.TripDTO;
+import com.ParcAuto.Ensa.Affectation.Entities.Driver;
+import com.ParcAuto.Ensa.Affectation.Entities.PermisType;
 import com.ParcAuto.Ensa.Affectation.Entities.Trip;
 import com.ParcAuto.Ensa.Affectation.Entities.VehiculeType;
+import com.ParcAuto.Ensa.Affectation.Repositories.DriverRepository;
 import com.ParcAuto.Ensa.Affectation.Repositories.TripRepository;
+import com.ParcAuto.Ensa.Affectation.Utils.PermitUtils;
 import com.ParcAuto.Ensa.Affectation.mappers.TripMappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,11 +27,13 @@ import java.util.stream.Collectors;
 public class TripService {
 
     private final TripRepository tripRepository;
+    private final DriverRepository driverRepository;
 
 
     @Autowired
-    public TripService(TripRepository tripRepository) {
+    public TripService(TripRepository tripRepository , DriverRepository driverRepository) {
         this.tripRepository = tripRepository;
+        this.driverRepository = driverRepository;
 
     }
 
@@ -83,6 +89,11 @@ public class TripService {
                 arrivalTime.isBefore(departureTime)) {
             return ResponseEntity.badRequest().body("Arrival time must be after departure time");
         }
+
+
+//        VehiculeType vehiculeType = tripDTO.getVehiculType();
+//        PermisType permitType = PermitUtils.getPermisForVehiculeType(vehiculeType);
+//        List<Driver> availableDrivers = driverRepository.getAvailableDriversForTrip(permitType, tripDTO);
 
         Trip trip = TripMappers.dtoToTrip(tripDTO);
         Trip savedTrip = tripRepository.save(trip);
