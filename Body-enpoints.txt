@@ -21,3 +21,17 @@ POST : http://localhost:8080/permisremise
     "numPermis": 123456,
     "cin": "AB12345"
 }
+
+
+POST : http://localhost:8080/carteGrise
+{
+    "num_Immatriculation": "ABC123",
+    "imm_anterieure": "DEF456",
+    "premiere_mise_Circulation": "2022-01-01T00:00:00.000Z",
+    "mc_maroc": "2022-01-01T00:00:00.000Z",
+    "mutation": "2022-01-01T00:00:00.000Z",
+    "usageCG": "Commercial",
+    "proprietaire": "John Doe",
+    "adresse": "123 Main St",
+    "fin_validite": "2023-01-01T00:00:00.000Z"
+}

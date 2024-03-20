@@ -21,7 +21,7 @@ public class TripDTO {
     private int nbrOfPassengers;
     private String statusConfirmation;
     private String vehiculType;
-    private Long vehiculeId; // Corresponding foreign key
-    private Long driverId; // Corresponding foreign key
+    private Long vehiculeId;
+    private Long driverId;
 
 }
