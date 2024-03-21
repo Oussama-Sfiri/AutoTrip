@@ -1,6 +1,4 @@
 package com.ParcAuto.Ensa.Affectation.Services;
-
-import com.ParcAuto.Ensa.Affectation.Dto.DriverDTO;
 import com.ParcAuto.Ensa.Affectation.Dto.TripDTO;
 import com.ParcAuto.Ensa.Affectation.Entities.*;
 import com.ParcAuto.Ensa.Affectation.Repositories.DriverRepository;
@@ -8,7 +6,6 @@ import com.ParcAuto.Ensa.Affectation.Repositories.TripRepository;
 import com.ParcAuto.Ensa.Affectation.Repositories.VehiculeRepository;
 import com.ParcAuto.Ensa.Affectation.Utils.PermitUtils;
 import com.ParcAuto.Ensa.Affectation.mappers.TripMappers;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,12 +57,15 @@ public class TripService {
 
         VehiculeType vehiculeType = tripDTO.getVehiculType();
         PermisType permitType = PermitUtils.getPermisForVehiculeType(vehiculeType);
+        Date departureDate = tripDTO.getDepartureDate();
+        Date arrivalDate = tripDTO.getArrivalDate();
 
         // Searching for Driver :
-        List<Driver> availableDrivers = driverRepository.getAvailableDriversForTrip(permitType);
+        List<Driver> availableDrivers = driverRepository.getAvailableDriversForTrip(permitType, departureDate, arrivalDate);
         if (availableDrivers.isEmpty()) {
             return ResponseEntity.badRequest().body("No available driver for this trip");
         }
+
         // Searching for Vehicule :
         List<Vehicule> availableVehicles = vehiculeRepository.getAvailableVehiclesForTrip(permitType);
         if (availableVehicles.isEmpty()) {
@@ -78,17 +79,15 @@ public class TripService {
         trip.setDriver(driver);
         trip.setVehicule(vehicule);
 
+        // Set driver and vehicle availability to false
         driver.setDisponibility(false);
         vehicule.setDisponibilite(false);
         driverRepository.save(driver);
         vehiculeRepository.save(vehicule);
 
-
-
         // Save the trip
         Trip savedTrip = tripRepository.save(trip);
         return ResponseEntity.ok().body(TripMappers.tripToDTO(savedTrip));
-
     }
 
     private String validateTrip(TripDTO tripDTO) {

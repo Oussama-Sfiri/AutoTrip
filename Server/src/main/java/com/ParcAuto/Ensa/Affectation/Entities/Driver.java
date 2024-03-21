@@ -41,4 +41,7 @@ public class Driver {
     @JoinColumn(name = "fk_permis")
     private Permis permis;
 
+    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Vacation> vacations;
+
 }
