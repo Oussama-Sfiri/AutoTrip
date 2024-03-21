@@ -22,7 +22,7 @@ public class DriverDTO {
     private String addresse;
     private boolean disponibility;
     private PermisDTO permis;
-
+    private VacationDTO vacation;
 
 
 }
