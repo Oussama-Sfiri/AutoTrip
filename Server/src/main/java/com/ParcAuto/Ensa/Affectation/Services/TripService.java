@@ -55,35 +55,7 @@ public class TripService {
             return ResponseEntity.badRequest().body(errorMessage);
         }
 
-        VehiculeType vehiculeType = tripDTO.getVehiculType();
-        PermisType permitType = PermitUtils.getPermisForVehiculeType(vehiculeType);
-        Date departureDate = tripDTO.getDepartureDate();
-        Date arrivalDate = tripDTO.getArrivalDate();
-
-        // Searching for Driver :
-        List<Driver> availableDrivers = driverRepository.getAvailableDriversForTrip(permitType, departureDate, arrivalDate);
-        if (availableDrivers.isEmpty()) {
-            return ResponseEntity.badRequest().body("No available driver for this trip");
-        }
-
-        // Searching for Vehicule :
-        List<Vehicule> availableVehicles = vehiculeRepository.getAvailableVehiclesForTrip(permitType);
-        if (availableVehicles.isEmpty()) {
-            return ResponseEntity.badRequest().body("No available vehicle for this trip");
-        }
-
-        Driver driver = availableDrivers.get(0);
-        Vehicule vehicule = availableVehicles.get(0);
-
         Trip trip = TripMappers.dtoToTrip(tripDTO);
-        trip.setDriver(driver);
-        trip.setVehicule(vehicule);
-
-        // Set driver and vehicle availability to false
-        driver.setDisponibility(false);
-        vehicule.setDisponibilite(false);
-        driverRepository.save(driver);
-        vehiculeRepository.save(vehicule);
 
         // Save the trip
         Trip savedTrip = tripRepository.save(trip);
