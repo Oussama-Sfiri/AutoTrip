@@ -56,8 +56,6 @@ public class TripService {
         }
 
         Trip trip = TripMappers.dtoToTrip(tripDTO);
-
-        // Save the trip
         Trip savedTrip = tripRepository.save(trip);
         return ResponseEntity.ok().body(TripMappers.tripToDTO(savedTrip));
     }
@@ -87,7 +85,7 @@ public class TripService {
             return "Arrival time must be after departure time";
         }
 
-        return null; // No validation error
+        return null;
     }
 
 

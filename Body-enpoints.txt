@@ -186,3 +186,9 @@ POST : http://localhost:8080/trips
     "nbrOfPassengers":5 ,
     "vehiculType": "Fourgonette"
 }
+
+POST : http://localhost:8080/affectation/affecter-trip/1
+{
+  "DriverId": 2,
+  "VehiculeId": 2
+}
