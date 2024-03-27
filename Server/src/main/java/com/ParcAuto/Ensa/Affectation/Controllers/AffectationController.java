@@ -1,5 +1,6 @@
 package com.ParcAuto.Ensa.Affectation.Controllers;
 
+import com.ParcAuto.Ensa.Affectation.Dto.AffecterTripRequestDTO;
 import com.ParcAuto.Ensa.Affectation.Dto.DriverDTO;
 import com.ParcAuto.Ensa.Affectation.Dto.VehiculeDTO;
 import com.ParcAuto.Ensa.Affectation.Services.AffectationService;
@@ -17,10 +18,14 @@ public class AffectationController {
     private AffectationService affectationService;
 
     @GetMapping("/conducteurs-disponibles/{tripId}")
-    public ResponseEntity<List<DriverDTO>> getConducteursDisponibles(@PathVariable Long tripId) {
+    public ResponseEntity<?> getConducteursDisponibles(@PathVariable Long tripId) {
         List<DriverDTO> conducteursDisponibles = affectationService.getConducteursDisponibles(tripId);
+        if (conducteursDisponibles == null || conducteursDisponibles.isEmpty()) {
+            return ResponseEntity.badRequest().body("No available drivers for this trip");
+        }
         return ResponseEntity.ok(conducteursDisponibles);
     }
+
 
     @GetMapping("/vehicules-disponibles/{tripId}")
     public ResponseEntity<List<VehiculeDTO>> getVehiculesDisponibles(@PathVariable Long tripId) {
@@ -29,8 +34,17 @@ public class AffectationController {
     }
 
     @PostMapping("/affecter-trip/{tripId}")
-    public ResponseEntity<String> affecterTrip(@RequestParam Long conducteurId, @RequestParam Long vehiculeId, @PathVariable Long tripId) {
-        String message = affectationService.affecterTrip(conducteurId, vehiculeId, tripId);
+    public ResponseEntity<String> affecterTrip(@PathVariable Long tripId, @RequestBody AffecterTripRequestDTO request) throws Exception {
+        Long driverId = request.getDriverId();
+        Long vehiculeId = request.getVehiculeId();
+        if (driverId == null || vehiculeId == null) {
+            return ResponseEntity.ok("DriverId and VehiculeId must not be null");
+        }
+        String message = affectationService.affecterTrip(driverId, vehiculeId, tripId);
         return ResponseEntity.ok(message);
     }
+
+
+
+
 }

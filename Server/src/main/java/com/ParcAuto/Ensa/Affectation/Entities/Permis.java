@@ -28,4 +28,13 @@ public class Permis {
     private List<PermisRemise> permisRemises;
 
 
+    @Override
+    public String toString() {
+        return "Permis{" +
+                "id=" + id +
+                ", numPermis=" + numPermis +
+                ", fin_validite=" + fin_validite +
+                // Omitting driver and permisRemises fields to avoid circular reference
+                '}';
+    }
 }

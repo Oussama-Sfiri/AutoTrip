@@ -22,7 +22,8 @@ public class DriverDTO {
     private String addresse;
     private boolean disponibility;
     private PermisDTO permis;
-    private VacationDTO vacation;
+    private List<VacationDTO> vacations;
+    private List<TripDTO> trips;
 
 
 }
