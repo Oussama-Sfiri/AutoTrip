@@ -33,17 +33,15 @@ public class AffectationService {
 
 
     @Autowired
-    public AffectationService( VehiculeService vehiculeService,TripService tripService , DriverRepository driverRepository , VehiculeRepository vehiculeRepository, DriverService driverService,TripRepository tripRepository) {
+    public AffectationService(TripService tripService , DriverRepository driverRepository , VehiculeRepository vehiculeRepository, TripRepository tripRepository) {
         this.tripService = tripService;
         this.tripRepository  = tripRepository;
         this.driverRepository = driverRepository;
         this.vehiculeRepository = vehiculeRepository;
-
     }
 
     public List<DriverDTO> getConducteursDisponibles(Long tripId) {
         TripDTO tripDTO = this.tripService.getTripById(tripId);
-        System.out.println(tripDTO.getId()+""+tripDTO.getVehiculType()+""+tripDTO.getDeparture());
         VehiculeType vehiculeType = tripDTO.getVehiculType();
         PermisType permitType = PermitUtils.getPermisForVehiculeType(vehiculeType);
         Date departureDate = tripDTO.getDepartureDate();
@@ -52,7 +50,7 @@ public class AffectationService {
         Time arrivalTime = tripDTO.getArrivalTime();
 
         // Searching for Driver :
-        List<Driver> availableDrivers = this.findDriversByPermisTypeAndDisponibilityTrueAndVacationsNotOverlapping(permitType, departureDate, arrivalDate, departureTime, arrivalTime);
+        List<Driver> availableDrivers = this.getAvailableDrivers(permitType, departureDate, arrivalDate, departureTime, arrivalTime);
         if (availableDrivers == null || availableDrivers.isEmpty()) {
             return Collections.emptyList();
         }
@@ -65,10 +63,13 @@ public class AffectationService {
         PermisType permitType = PermitUtils.getPermisForVehiculeType(vehiculeType);
         Date departureDate = tripDTO.getDepartureDate();
         Date arrivalDate = tripDTO.getArrivalDate();
+        Time departureTime = tripDTO.getDepartureTime();
+        Time arrivalTime = tripDTO.getArrivalTime();
+
         // Searching for Vehicule :
-        List<Vehicule> availableVehicles = vehiculeRepository.getAvailableVehiclesForTrip(permitType, departureDate, arrivalDate);
+        List<Vehicule> availableVehicles = this.filterAvailableVehicles(permitType, departureDate, arrivalDate, departureTime, arrivalTime);
         if (availableVehicles.isEmpty()) {
-            return null;
+            return Collections.emptyList();
         }
         return availableVehicles.stream().map(VehiculeMappers::VehiculeToDTO).collect(Collectors.toList());
     }
@@ -107,8 +108,7 @@ public class AffectationService {
 
 
 
-    public List<Driver> findDriversByPermisTypeAndDisponibilityTrueAndVacationsNotOverlapping(
-            PermisType permitType, Date departureDate, Date arrivalDate, Time departureTime, Time arrivalTime) {
+    public List<Driver> getAvailableDrivers(PermisType permitType, Date departureDate, Date arrivalDate, Time departureTime, Time arrivalTime) {
 
         // Fetch all drivers from the repository
         List<Driver> allDrivers = driverRepository.findAll();
@@ -134,18 +134,9 @@ public class AffectationService {
 
                             // Check if the driver's trips do not overlap with the trip dates
                             boolean tripsNotOverlapping = driver.getTrips().stream()
-                                    .noneMatch(trip -> (departureDate.after(trip.getArrivalDate())
-                                            || arrivalDate.before(trip.getDepartureDate())
-                                            || trip.getDepartureDate().after(departureDate)
-                                            && trip.getDepartureDate().before(arrivalDate)
-                                            || trip.getArrivalDate().after(departureDate)
-                                            && trip.getArrivalDate().before(arrivalDate)
-                                            || departureTime.after(trip.getArrivalTime())
-                                            || arrivalTime.before(trip.getDepartureTime())
-                                            || trip.getDepartureTime().after(departureTime)
-                                            && trip.getDepartureTime().before(arrivalTime)
-                                            || trip.getArrivalTime().after(departureTime)
-                                            && trip.getArrivalTime().before(arrivalTime)));
+                                    .noneMatch(trip ->
+                                            filterDateTimeCritere(trip, departureDate, arrivalDate, departureTime, arrivalTime)
+                                    );
 
                             return disponibility  && vacationsNotOverlapping && tripsNotOverlapping  ;
 
@@ -155,12 +146,38 @@ public class AffectationService {
                 })
                 .collect(Collectors.toList());
 
-
     }
 
 
+    public List<Vehicule> filterAvailableVehicles(PermisType permitType, Date departureDate, Date arrivalDate, Time departureTime, Time arrivalTime) {
+        List<Vehicule> vehicules = vehiculeRepository.findAll();
+        return vehicules.stream()
+                .filter(vehicule -> vehicule.isDisponibilite() && vehicule.getTypePermisRequis().equals(permitType))
+                .filter(vehicule -> {
+                    // Utilisation de NONE des véhicules qui ont des voyages prévus pendant les dates spécifiées
+                    return vehicule.getTrips().stream()
+                            .noneMatch(trip ->
+                                    filterDateTimeCritere(trip, departureDate, arrivalDate, departureTime, arrivalTime)
+                            );
+                })
+                .collect(Collectors.toList());
+    }
 
 
+    public boolean filterDateTimeCritere(Trip trip, Date departureDate, Date arrivalDate, Time departureTime, Time arrivalTime){
+        return (departureDate.after(trip.getArrivalDate())
+                || arrivalDate.before(trip.getDepartureDate())
+                || trip.getDepartureDate().after(departureDate)
+                && trip.getDepartureDate().before(arrivalDate)
+                || trip.getArrivalDate().after(departureDate)
+                && trip.getArrivalDate().before(arrivalDate)
+                || departureTime.after(trip.getArrivalTime())
+                || arrivalTime.before(trip.getDepartureTime())
+                || trip.getDepartureTime().after(departureTime)
+                && trip.getDepartureTime().before(arrivalTime)
+                || trip.getArrivalTime().after(departureTime)
+                && trip.getArrivalTime().before(arrivalTime));
+    }
 
 }
 
