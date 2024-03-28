@@ -1,11 +1,8 @@
 package com.ParcAuto.Ensa.Affectation.mappers;
 
-import com.ParcAuto.Ensa.Affectation.Dto.DriverDTO;
 import com.ParcAuto.Ensa.Affectation.Dto.TripDTO;
-import com.ParcAuto.Ensa.Affectation.Entities.Driver;
 import com.ParcAuto.Ensa.Affectation.Entities.Trip;
 import org.springframework.beans.BeanUtils;
-
 
 public class TripMappers {
 

@@ -1,8 +1,5 @@
 package com.ParcAuto.Ensa.Affectation.Dto;
 
-import com.ParcAuto.Ensa.Affectation.Entities.PermisRemise;
-import com.ParcAuto.Ensa.Affectation.Entities.PermisType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

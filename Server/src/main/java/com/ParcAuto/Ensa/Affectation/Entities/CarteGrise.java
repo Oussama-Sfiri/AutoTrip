@@ -2,10 +2,6 @@ package com.ParcAuto.Ensa.Affectation.Entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity

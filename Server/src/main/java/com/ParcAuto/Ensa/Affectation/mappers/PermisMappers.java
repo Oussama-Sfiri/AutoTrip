@@ -3,14 +3,8 @@ package com.ParcAuto.Ensa.Affectation.mappers;
 import com.ParcAuto.Ensa.Affectation.Dto.PermisDTO;
 import com.ParcAuto.Ensa.Affectation.Dto.PermisRemiseDTO;
 import com.ParcAuto.Ensa.Affectation.Entities.Permis;
-import com.ParcAuto.Ensa.Affectation.Entities.PermisRemise;
-import org.springframework.beans.BeanUtils;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.ParcAuto.Ensa.Affectation.mappers.PermisRemiseMappers.DTOToPermisRemise;
 
 public class PermisMappers {
 
