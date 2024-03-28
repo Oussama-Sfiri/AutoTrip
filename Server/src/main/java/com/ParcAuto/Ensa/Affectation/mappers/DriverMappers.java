@@ -1,7 +1,6 @@
 package com.ParcAuto.Ensa.Affectation.mappers;
 
 import com.ParcAuto.Ensa.Affectation.Dto.DriverDTO;
-import com.ParcAuto.Ensa.Affectation.Dto.PermisRemiseDTO;
 import com.ParcAuto.Ensa.Affectation.Dto.TripDTO;
 import com.ParcAuto.Ensa.Affectation.Dto.VacationDTO;
 import com.ParcAuto.Ensa.Affectation.Entities.Driver;

@@ -1,11 +1,9 @@
 package com.ParcAuto.Ensa.Affectation.Dto;
 
 import com.ParcAuto.Ensa.Affectation.Entities.PermisType;
-import jakarta.annotation.Nullable;
 import lombok.*;
-
 import java.util.Date;
-import java.util.List;
+
 @Builder
 @Data
 @AllArgsConstructor

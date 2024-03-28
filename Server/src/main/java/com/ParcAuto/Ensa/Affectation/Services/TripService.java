@@ -1,10 +1,10 @@
 package com.ParcAuto.Ensa.Affectation.Services;
+
 import com.ParcAuto.Ensa.Affectation.Dto.TripDTO;
 import com.ParcAuto.Ensa.Affectation.Entities.*;
 import com.ParcAuto.Ensa.Affectation.Repositories.DriverRepository;
 import com.ParcAuto.Ensa.Affectation.Repositories.TripRepository;
 import com.ParcAuto.Ensa.Affectation.Repositories.VehiculeRepository;
-import com.ParcAuto.Ensa.Affectation.Utils.PermitUtils;
 import com.ParcAuto.Ensa.Affectation.mappers.TripMappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
