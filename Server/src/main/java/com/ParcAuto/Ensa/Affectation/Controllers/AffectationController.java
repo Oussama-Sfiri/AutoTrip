@@ -28,8 +28,11 @@ public class AffectationController {
 
 
     @GetMapping("/vehicules-disponibles/{tripId}")
-    public ResponseEntity<List<VehiculeDTO>> getVehiculesDisponibles(@PathVariable Long tripId) {
+    public ResponseEntity<?> getVehiculesDisponibles(@PathVariable Long tripId) {
         List<VehiculeDTO> vehiculesDisponibles = affectationService.getVehiculesDisponibles(tripId);
+        if (vehiculesDisponibles == null || vehiculesDisponibles.isEmpty()) {
+            return ResponseEntity.badRequest().body("No available vehicules for this trip");
+        }
         return ResponseEntity.ok(vehiculesDisponibles);
     }
 
