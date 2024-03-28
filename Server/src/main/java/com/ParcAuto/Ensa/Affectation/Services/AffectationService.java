@@ -30,9 +30,7 @@ public class AffectationService {
     private final TripRepository tripRepository;
     private final DriverRepository driverRepository;
     private final VehiculeRepository vehiculeRepository;
-    private  final VehiculeService vehiculeService;
 
-    private final DriverService driverService;
 
     @Autowired
     public AffectationService( VehiculeService vehiculeService,TripService tripService , DriverRepository driverRepository , VehiculeRepository vehiculeRepository, DriverService driverService,TripRepository tripRepository) {
@@ -40,8 +38,7 @@ public class AffectationService {
         this.tripRepository  = tripRepository;
         this.driverRepository = driverRepository;
         this.vehiculeRepository = vehiculeRepository;
-        this.driverService = driverService;
-        this.vehiculeService = vehiculeService;
+
     }
 
     public List<DriverDTO> getConducteursDisponibles(Long tripId) {

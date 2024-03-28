@@ -23,16 +23,12 @@ import java.util.stream.Collectors;
 public class TripService {
 
     private final TripRepository tripRepository;
-    private final DriverRepository driverRepository;
-    private final VehiculeRepository vehiculeRepository;
+
 
 
     @Autowired
     public TripService(TripRepository tripRepository , DriverRepository driverRepository , VehiculeRepository vehiculeRepository) {
         this.tripRepository = tripRepository;
-        this.driverRepository = driverRepository;
-        this.vehiculeRepository = vehiculeRepository;
-
     }
 
     public TripDTO getTripById(Long id) {
@@ -54,7 +50,6 @@ public class TripService {
         if (errorMessage != null) {
             return ResponseEntity.badRequest().body(errorMessage);
         }
-
         Trip trip = TripMappers.dtoToTrip(tripDTO);
         Trip savedTrip = tripRepository.save(trip);
         return ResponseEntity.ok().body(TripMappers.tripToDTO(savedTrip));

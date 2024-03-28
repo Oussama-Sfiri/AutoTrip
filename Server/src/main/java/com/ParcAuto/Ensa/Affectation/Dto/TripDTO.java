@@ -1,11 +1,12 @@
 package com.ParcAuto.Ensa.Affectation.Dto;
 
 import com.ParcAuto.Ensa.Affectation.Entities.VehiculeType;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Date;
+
 @Builder
 @Data
 @AllArgsConstructor
