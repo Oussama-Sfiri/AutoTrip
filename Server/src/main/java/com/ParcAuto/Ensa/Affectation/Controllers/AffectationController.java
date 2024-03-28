@@ -5,7 +5,6 @@ import com.ParcAuto.Ensa.Affectation.Dto.DriverDTO;
 import com.ParcAuto.Ensa.Affectation.Dto.VehiculeDTO;
 import com.ParcAuto.Ensa.Affectation.Services.AffectationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +25,6 @@ public class AffectationController {
         return ResponseEntity.ok(conducteursDisponibles);
     }
 
-
     @GetMapping("/vehicules-disponibles/{tripId}")
     public ResponseEntity<?> getVehiculesDisponibles(@PathVariable Long tripId) {
         List<VehiculeDTO> vehiculesDisponibles = affectationService.getVehiculesDisponibles(tripId);
@@ -46,8 +44,5 @@ public class AffectationController {
         String message = affectationService.affecterTrip(driverId, vehiculeId, tripId);
         return ResponseEntity.ok(message);
     }
-
-
-
 
 }

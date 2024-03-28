@@ -9,12 +9,8 @@ import com.ParcAuto.Ensa.Affectation.Repositories.TripRepository;
 import com.ParcAuto.Ensa.Affectation.Repositories.VehiculeRepository;
 import com.ParcAuto.Ensa.Affectation.Utils.PermitUtils;
 import com.ParcAuto.Ensa.Affectation.mappers.DriverMappers;
-import com.ParcAuto.Ensa.Affectation.mappers.TripMappers;
 import com.ParcAuto.Ensa.Affectation.mappers.VehiculeMappers;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
