@@ -42,7 +42,7 @@ public class Vehicule {
     private boolean disponibilite;
 
     @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
-    private List<Trip> trip;
+    private List<Trip> trips;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_carteGrise", referencedColumnName = "id")
