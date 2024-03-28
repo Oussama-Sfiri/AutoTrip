@@ -81,6 +81,13 @@ POST : http://localhost:8080/permisremise :
      "cin": "PQ67890"
 }
 
+POST: http://localhost:8080/vacations
+{
+  "start": "2024-04-01",
+  "end": "2024-04-10",
+  "driverId": 1
+}
+
 
 
 
