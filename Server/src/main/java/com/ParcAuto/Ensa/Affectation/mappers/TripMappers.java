@@ -7,6 +7,9 @@ import org.springframework.beans.BeanUtils;
 public class TripMappers {
 
     public static TripDTO tripToDTO(Trip trip) {
+        if (trip == null) {
+            return new TripDTO();
+        }
         TripDTO tripDTO = new TripDTO();
         BeanUtils.copyProperties(trip, tripDTO);
         if (trip.getDriver() != null) {

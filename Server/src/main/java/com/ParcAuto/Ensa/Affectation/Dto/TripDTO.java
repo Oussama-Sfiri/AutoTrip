@@ -4,7 +4,9 @@ import com.ParcAuto.Ensa.Affectation.Entities.VehiculeType;
 import lombok.*;
 
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Date;
+
 @Builder
 @Data
 @AllArgsConstructor
