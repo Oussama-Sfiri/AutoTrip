@@ -2,7 +2,6 @@ package com.ParcAuto.Ensa.Affectation.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.sql.Time;
 import java.util.Date;
 

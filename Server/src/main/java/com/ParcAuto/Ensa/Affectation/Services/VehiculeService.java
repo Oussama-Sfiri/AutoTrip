@@ -1,11 +1,8 @@
 package com.ParcAuto.Ensa.Affectation.Services;
 
-import com.ParcAuto.Ensa.Affectation.Dto.CarteGriseDTO;
 import com.ParcAuto.Ensa.Affectation.Dto.VehiculeDTO;
-import com.ParcAuto.Ensa.Affectation.Entities.CarteGrise;
 import com.ParcAuto.Ensa.Affectation.Entities.Vehicule;
 import com.ParcAuto.Ensa.Affectation.Repositories.VehiculeRepository;
-import com.ParcAuto.Ensa.Affectation.mappers.CarteGriseMappers;
 import com.ParcAuto.Ensa.Affectation.mappers.VehiculeMappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
