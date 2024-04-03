@@ -12,11 +12,10 @@ import com.ParcAuto.Ensa.Affectation.mappers.DriverMappers;
 import com.ParcAuto.Ensa.Affectation.mappers.VehiculeMappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -125,8 +124,8 @@ public class AffectationService {
 
                             // Check if the driver's vacations do not overlap with the trip dates
                             boolean vacationsNotOverlapping = driver.getVacations().isEmpty() ||
-                                    driver.getVacations().stream().noneMatch(vacation ->
-                                            !(arrivalDate.isBefore(vacation.getStart()) || departureDate.isAfter(vacation.getEnd())));
+                                    driver.getVacations().stream().allMatch(vacation ->
+                                            arrivalDate.isBefore(vacation.getStart()) || departureDate.isAfter(vacation.getEnd()));
 
 
                             // Check if the driver's trips do not overlap with the trip dates
@@ -147,15 +146,22 @@ public class AffectationService {
 
 
     public List<Vehicule> filterAvailableVehicles(PermisType permitType, LocalDate departureDate, LocalDate arrivalDate, Time departureTime, Time arrivalTime) {
+        LocalDate currentDate = LocalDate.now();
+
         List<Vehicule> vehicules = vehiculeRepository.findAll();
         return vehicules.stream()
                 .filter(vehicule -> vehicule.isDisponibilite() && vehicule.getTypePermisRequis().equals(permitType))
+                .filter(vehicule -> vehicule.getTrips().stream()
+                        .noneMatch(trip ->
+                                filterDateTimeCritere(trip, departureDate, arrivalDate, departureTime, arrivalTime)
+                        ))
                 .filter(vehicule -> {
-                    // Utilisation de NONE des véhicules qui ont des voyages prévus pendant les dates spécifiées
-                    return vehicule.getTrips().stream()
-                            .noneMatch(trip ->
-                                    filterDateTimeCritere(trip, departureDate, arrivalDate, departureTime, arrivalTime)
-                            );
+                    LocalDate visiteTech = vehicule.getVisiteTech();
+                    if (visiteTech != null) {
+                        long daysSinceLastTechVisit = ChronoUnit.DAYS.between(visiteTech, currentDate);
+                        return daysSinceLastTechVisit <= 365;
+                    }
+                    return true;
                 })
                 .collect(Collectors.toList());
     }

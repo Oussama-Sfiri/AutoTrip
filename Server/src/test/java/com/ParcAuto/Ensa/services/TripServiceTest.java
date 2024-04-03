@@ -38,7 +38,6 @@ public class TripServiceTest {
 
     @Test
     public void testCreateValidTrip() {
-        // Mocking tripDTO
         TripDTO tripDTO = new TripDTO();
         tripDTO.setDeparture("Agadir");
         tripDTO.setDestination("Madrid");
@@ -60,11 +59,10 @@ public class TripServiceTest {
 
     @Test
     public void testDepartureDateBeforeCurrentDate() {
-        // Mocking tripDTO with departure date before the current date
         TripDTO tripDTO = new TripDTO();
         tripDTO.setDeparture("Agadir");
         tripDTO.setDestination("Madrid");
-        tripDTO.setDepartureDate(LocalDate.now().minusDays(1)); // Setting departure date to yesterday
+        tripDTO.setDepartureDate(LocalDate.now().minusDays(1));
         tripDTO.setDepartureTime(Time.valueOf(LocalTime.of(9, 0)));
         tripDTO.setArrivalDate(tripDTO.getDepartureDate().plusDays(1));
         tripDTO.setArrivalTime(Time.valueOf(LocalTime.of(8, 0)));
@@ -81,13 +79,12 @@ public class TripServiceTest {
 
     @Test
     public void testArrivalDateBeforeDepartureDate() {
-        // Mocking tripDTO with arrival date before departure date
         TripDTO tripDTO = new TripDTO();
         tripDTO.setDeparture("Agadir");
         tripDTO.setDestination("Madrid");
         tripDTO.setDepartureDate(LocalDate.now().plusDays(1));
         tripDTO.setDepartureTime(Time.valueOf(LocalTime.of(9, 0)));
-        tripDTO.setArrivalDate(tripDTO.getDepartureDate().minusDays(1)); // Setting arrival date before departure date
+        tripDTO.setArrivalDate(tripDTO.getDepartureDate().minusDays(1));
         tripDTO.setArrivalTime(Time.valueOf(LocalTime.of(8, 0)));
         tripDTO.setNbrOfPassengers(5);
         tripDTO.setVehiculType(VehiculeType.Fourgonette);
@@ -102,14 +99,13 @@ public class TripServiceTest {
 
     @Test
     public void testArrivalTimeBeforeDepartureTime() {
-        // Mocking tripDTO with arrival time before departure time on the same day
         TripDTO tripDTO = new TripDTO();
         tripDTO.setDeparture("Agadir");
         tripDTO.setDestination("Madrid");
-        tripDTO.setDepartureDate(LocalDate.now()); // Setting departure date to the current date
+        tripDTO.setDepartureDate(LocalDate.now());
         tripDTO.setDepartureTime(Time.valueOf(LocalTime.of(9, 0)));
         tripDTO.setArrivalDate(tripDTO.getDepartureDate());
-        tripDTO.setArrivalTime(Time.valueOf(LocalTime.of(8, 0))); // Setting arrival time before departure time
+        tripDTO.setArrivalTime(Time.valueOf(LocalTime.of(8, 0)));
         tripDTO.setNbrOfPassengers(5);
         tripDTO.setVehiculType(VehiculeType.Fourgonette);
 
