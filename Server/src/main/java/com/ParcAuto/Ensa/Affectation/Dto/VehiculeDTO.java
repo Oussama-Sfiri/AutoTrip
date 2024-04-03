@@ -2,6 +2,8 @@ package com.ParcAuto.Ensa.Affectation.Dto;
 
 import com.ParcAuto.Ensa.Affectation.Entities.PermisType;
 import lombok.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Builder
@@ -16,8 +18,8 @@ public class VehiculeDTO {
     private int kilemotrage;
     private PermisType typePermisRequis;
     private String assurance;
-    private Date visiteTech;
-    private Date vignette;
+    private LocalDate visiteTech;
+    private LocalDate vignette;
     private boolean disponibilite;
     private CarteGriseDTO carteGrise;
 

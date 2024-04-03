@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,10 +19,10 @@ public class Vacation {
     private Long Id;
 
     @Column(name = "start_vacation", nullable = false)
-    private Date start;
+    private LocalDate start;
 
     @Column(name = "end_vacation", nullable = false)
-    private Date end;
+    private LocalDate end;
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "driver_fk")

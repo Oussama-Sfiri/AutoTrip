@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -33,10 +34,10 @@ public class Vehicule {
     private String assurance;
 
     @Column()
-    private Date visiteTech;
+    private LocalDate visiteTech;
 
     @Column()
-    private Date vignette;
+    private LocalDate vignette;
 
     @Column()
     private boolean disponibilite;

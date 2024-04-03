@@ -3,6 +3,7 @@ package com.ParcAuto.Ensa.Affectation.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -21,13 +22,13 @@ public class Trip {
     private String destination;
 
     @Column()
-    private Date departureDate;
+    private LocalDate departureDate;
 
     @Column()
     private Time departureTime;
 
     @Column()
-    private Date arrivalDate;
+    private LocalDate arrivalDate;
 
     @Column()
     private Time arrivalTime;

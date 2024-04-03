@@ -3,6 +3,8 @@ package com.ParcAuto.Ensa.Affectation.Entities;
 import lombok.Data;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class Permis {
     private Long numPermis;
 
     @Column()
-    private Date fin_validite;
+    private LocalDate fin_validite;
 
     @OneToOne(mappedBy = "permis", cascade = CascadeType.ALL)
     private Driver driver;
@@ -34,7 +36,7 @@ public class Permis {
                 "id=" + id +
                 ", numPermis=" + numPermis +
                 ", fin_validite=" + fin_validite +
-                // Omitting driver and permisRemises fields to avoid circular reference
+
                 '}';
     }
 }

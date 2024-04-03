@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 public class PermisRemiseDTO {
     private Long id;
     private PermisType type;
-    private Date date_remise_permis;
+    private LocalDate date_remise_permis;
     private String lieu_remise_permis;
     private Long numPermis;
     private String cin;

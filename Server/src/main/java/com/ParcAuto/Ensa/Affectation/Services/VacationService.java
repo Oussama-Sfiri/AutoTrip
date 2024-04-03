@@ -31,7 +31,7 @@ public class VacationService {
     }
 
     public ResponseEntity<?> createVacation(VacationDTO vacationDTO) {
-        if (vacationDTO.getStart().after(vacationDTO.getEnd())) {
+        if (vacationDTO.getStart().isAfter(vacationDTO.getEnd())) {
             return ResponseEntity.badRequest().body("Start date must be before the end date");
         }
         Long driverId = vacationDTO.getDriverId();

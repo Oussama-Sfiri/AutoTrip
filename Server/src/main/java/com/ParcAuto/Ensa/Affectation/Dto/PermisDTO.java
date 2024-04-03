@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,6 @@ import java.util.List;
 public class PermisDTO {
     private Long id;
     private Long numPermis;
-    private Date fin_validite;
+    private LocalDate fin_validite;
     private List<PermisRemiseDTO> permisRemises;
 }
