@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -40,8 +41,8 @@ public class AffectationService {
         TripDTO tripDTO = this.tripService.getTripById(tripId);
         VehiculeType vehiculeType = tripDTO.getVehiculType();
         PermisType permitType = PermitUtils.getPermisForVehiculeType(vehiculeType);
-        Date departureDate = tripDTO.getDepartureDate();
-        Date arrivalDate = tripDTO.getArrivalDate();
+        LocalDate departureDate = tripDTO.getDepartureDate();
+        LocalDate arrivalDate = tripDTO.getArrivalDate();
         Time departureTime = tripDTO.getDepartureTime();
         Time arrivalTime = tripDTO.getArrivalTime();
 
@@ -57,8 +58,8 @@ public class AffectationService {
         TripDTO tripDTO = this.tripService.getTripById(tripId);
         VehiculeType vehiculeType = tripDTO.getVehiculType();
         PermisType permitType = PermitUtils.getPermisForVehiculeType(vehiculeType);
-        Date departureDate = tripDTO.getDepartureDate();
-        Date arrivalDate = tripDTO.getArrivalDate();
+        LocalDate departureDate = tripDTO.getDepartureDate();
+        LocalDate arrivalDate = tripDTO.getArrivalDate();
         Time departureTime = tripDTO.getDepartureTime();
         Time arrivalTime = tripDTO.getArrivalTime();
 
@@ -104,7 +105,7 @@ public class AffectationService {
 
 
 
-    public List<Driver> getAvailableDrivers(PermisType permitType, Date departureDate, Date arrivalDate, Time departureTime, Time arrivalTime) {
+    public List<Driver> getAvailableDrivers(PermisType permitType, LocalDate departureDate, LocalDate arrivalDate, Time departureTime, Time arrivalTime) {
 
         // Fetch all drivers from the repository
         List<Driver> allDrivers = driverRepository.findAll();
@@ -125,7 +126,7 @@ public class AffectationService {
                             // Check if the driver's vacations do not overlap with the trip dates
                             boolean vacationsNotOverlapping = driver.getVacations().isEmpty() ||
                                     driver.getVacations().stream().noneMatch(vacation ->
-                                            !(arrivalDate.before(vacation.getStart()) || departureDate.after(vacation.getEnd())));
+                                            !(arrivalDate.isBefore(vacation.getStart()) || departureDate.isAfter(vacation.getEnd())));
 
 
                             // Check if the driver's trips do not overlap with the trip dates
@@ -145,7 +146,7 @@ public class AffectationService {
     }
 
 
-    public List<Vehicule> filterAvailableVehicles(PermisType permitType, Date departureDate, Date arrivalDate, Time departureTime, Time arrivalTime) {
+    public List<Vehicule> filterAvailableVehicles(PermisType permitType, LocalDate departureDate, LocalDate arrivalDate, Time departureTime, Time arrivalTime) {
         List<Vehicule> vehicules = vehiculeRepository.findAll();
         return vehicules.stream()
                 .filter(vehicule -> vehicule.isDisponibilite() && vehicule.getTypePermisRequis().equals(permitType))
@@ -160,13 +161,13 @@ public class AffectationService {
     }
 
 
-    public boolean filterDateTimeCritere(Trip trip, Date departureDate, Date arrivalDate, Time departureTime, Time arrivalTime){
-        return (departureDate.after(trip.getArrivalDate())
-                || arrivalDate.before(trip.getDepartureDate())
-                || trip.getDepartureDate().after(departureDate)
-                && trip.getDepartureDate().before(arrivalDate)
-                || trip.getArrivalDate().after(departureDate)
-                && trip.getArrivalDate().before(arrivalDate)
+    public boolean filterDateTimeCritere(Trip trip, LocalDate departureDate, LocalDate arrivalDate, Time departureTime, Time arrivalTime){
+        return (departureDate.isAfter(trip.getArrivalDate())
+                || arrivalDate.isBefore(trip.getDepartureDate())
+                || trip.getDepartureDate().isAfter(departureDate)
+                && trip.getDepartureDate().isBefore(arrivalDate)
+                || trip.getArrivalDate().isAfter(departureDate)
+                && trip.getArrivalDate().isBefore(arrivalDate)
                 || departureTime.after(trip.getArrivalTime())
                 || arrivalTime.before(trip.getDepartureTime())
                 || trip.getDepartureTime().after(departureTime)

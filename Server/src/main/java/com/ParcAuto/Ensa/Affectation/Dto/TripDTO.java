@@ -4,7 +4,7 @@ import com.ParcAuto.Ensa.Affectation.Entities.VehiculeType;
 import lombok.*;
 
 import java.sql.Time;
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Builder
@@ -16,9 +16,9 @@ public class TripDTO {
     private Long id;
     private String departure;
     private String destination;
-    private Date departureDate;
+    private LocalDate departureDate;
     private Time departureTime;
-    private Date arrivalDate;
+    private LocalDate arrivalDate;
     private Time arrivalTime;
     private int nbrOfPassengers;
     private String statusConfirmation;

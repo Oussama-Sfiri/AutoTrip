@@ -3,6 +3,8 @@ package com.ParcAuto.Ensa.Affectation.Entities;
 import lombok.Data;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -16,7 +18,7 @@ public class PermisRemise {
     private PermisType type;
 
     @Column()
-    private Date date_remise_permis;
+    private LocalDate date_remise_permis;
 
     @Column()
     private String lieu_remise_permis;

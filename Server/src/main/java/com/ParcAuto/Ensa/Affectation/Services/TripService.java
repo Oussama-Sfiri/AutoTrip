@@ -56,17 +56,15 @@ public class TripService {
 
     private String validateTrip(TripDTO tripDTO) {
         // Check if departure date is in the future
-        LocalDate departureDate = tripDTO.getDepartureDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate departureDate = tripDTO.getDepartureDate();
         if (departureDate.isBefore(LocalDate.now())) {
             return "Departure date must be in the future";
         }
-
         // Check if arrival date is after departure date
-        LocalDate arrivalDate = tripDTO.getArrivalDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate arrivalDate = tripDTO.getArrivalDate();
         if (arrivalDate.isBefore(departureDate)) {
             return "Arrival date must be after departure date";
         }
-
         // Check if departure time is in the future
         LocalTime departureTime = tripDTO.getDepartureTime().toLocalTime();
         if (departureDate.equals(LocalDate.now()) && departureTime.isBefore(LocalTime.now())) {

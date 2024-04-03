@@ -2,6 +2,7 @@ package com.ParcAuto.Ensa.Affectation.Dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class DriverDTO {
     private String cin;
     private String nom;
     private String prenom;
-    private Date date_naissance;
+    private LocalDate date_naissance;
     private String addresse;
     private boolean disponibility;
     private PermisDTO permis;

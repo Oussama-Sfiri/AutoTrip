@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Builder
@@ -14,7 +15,7 @@ import java.util.Date;
 public class VacationDTO {
 
     private Long id;
-    private Date start;
-    private Date end;
+    private LocalDate start;
+    private LocalDate end;
     private Long driverId;
 }
