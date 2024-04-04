@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/// validite de permis date et vignette
 @Service
 public class AffectationService {
     private final TripService tripService;
@@ -119,23 +120,29 @@ public class AffectationService {
                                 .anyMatch(pr -> pr.getType() == permitType);
 
                         if (permitTypeMatches) {
-                            // Check if the driver is available
-                            boolean disponibility = driver.isDisponibility();
+                            // Check if the driver's permit is still valid
+                            LocalDate finValidite = driverPermis.getFin_validite();
+                            if (finValidite != null) {
+                                boolean permitValid = finValidite.isAfter(LocalDate.now());
 
-                            // Check if the driver's vacations do not overlap with the trip dates
-                            boolean vacationsNotOverlapping = driver.getVacations().isEmpty() ||
-                                    driver.getVacations().stream().allMatch(vacation ->
-                                            arrivalDate.isBefore(vacation.getStart()) || departureDate.isAfter(vacation.getEnd()));
+                                if (permitValid) {
+                                    // Check if the driver is available
+                                    boolean disponibility = driver.isDisponibility();
 
+                                    // Check if the driver's vacations do not overlap with the trip dates
+                                    boolean vacationsNotOverlapping = driver.getVacations().isEmpty() ||
+                                            driver.getVacations().stream().allMatch(vacation ->
+                                                    arrivalDate.isBefore(vacation.getStart()) || departureDate.isAfter(vacation.getEnd()));
 
-                            // Check if the driver's trips do not overlap with the trip dates
-                            boolean tripsNotOverlapping = driver.getTrips().stream()
-                                    .noneMatch(trip ->
-                                            filterDateTimeCritere(trip, departureDate, arrivalDate, departureTime, arrivalTime)
-                                    );
+                                    // Check if the driver's trips do not overlap with the trip dates
+                                    boolean tripsNotOverlapping = driver.getTrips().stream()
+                                            .noneMatch(trip ->
+                                                    filterDateTimeCritere(trip, departureDate, arrivalDate, departureTime, arrivalTime)
+                                            );
 
-                            return disponibility  && vacationsNotOverlapping && tripsNotOverlapping  ;
-
+                                    return disponibility && vacationsNotOverlapping && tripsNotOverlapping;
+                                }
+                            }
                         }
                     }
                     return false;
@@ -160,6 +167,14 @@ public class AffectationService {
                     if (visiteTech != null) {
                         long daysSinceLastTechVisit = ChronoUnit.DAYS.between(visiteTech, currentDate);
                         return daysSinceLastTechVisit <= 365;
+                    }
+                    return true;
+                })
+                .filter(vehicule -> {
+                    LocalDate vignette = vehicule.getVignette();
+                    if (vignette != null) {
+                        long daysSinceLastVignette = ChronoUnit.DAYS.between(vignette, currentDate);
+                        return daysSinceLastVignette <= 365;
                     }
                     return true;
                 })
