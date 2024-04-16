@@ -5,6 +5,7 @@ import com.ParcAuto.Ensa.Affectation.Entities.Vehicule;
 import com.ParcAuto.Ensa.Affectation.Repositories.VehiculeRepository;
 import com.ParcAuto.Ensa.Affectation.mappers.VehiculeMappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,18 +21,20 @@ public class VehiculeService {
         this.vehiculeRepository = vehiculeRepository;
     }
 
+    @Cacheable("vehicules")
     public VehiculeDTO createVehicule(VehiculeDTO vehiculeDTO) {
         Vehicule vehicule = VehiculeMappers.DTOToVehicule(vehiculeDTO);
         vehicule = vehiculeRepository.save(vehicule);
         return VehiculeMappers.VehiculeToDTO(vehicule);
     }
 
-
+    @Cacheable("vehicules")
     public List<VehiculeDTO> getAllVehicles() {
         List<Vehicule> allVehicles = vehiculeRepository.findAll();
         return allVehicles.stream().map(VehiculeMappers::VehiculeToDTO).collect(Collectors.toList());
     }
 
+    @Cacheable(value = "vehicules", key = "#id")
     public VehiculeDTO getVehiculeById(Long id) {
         Vehicule vehicule = vehiculeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vehicle not found with id: " + id));
