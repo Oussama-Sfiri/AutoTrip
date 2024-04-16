@@ -7,6 +7,7 @@ import com.ParcAuto.Ensa.Affectation.Repositories.TripRepository;
 import com.ParcAuto.Ensa.Affectation.Repositories.VehiculeRepository;
 import com.ParcAuto.Ensa.Affectation.mappers.TripMappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,12 +31,14 @@ public class TripService {
         this.tripRepository = tripRepository;
     }
 
+    @Cacheable(value = "trips", key = "#id")
     public TripDTO getTripById(Long id) {
         Trip trip = tripRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Trip not found with id: " + id));
         return TripMappers.tripToDTO(trip);
     }
 
+    @Cacheable("trips")
     public List<TripDTO> getAllTrips() {
         List<Trip> trips = tripRepository.findAll();
         return trips.stream()
